@@ -67,8 +67,6 @@ def using_project(project_name):
         project['name'],
     )
     env.local_home = os.environ['HOME']
-    # env.hosts = ['169.45.108.55']  # Koding VM for hackathon
-    # env.hosts = ['50.116.12.111']  # Linode VM
     env.hosts = project['deploy']['hosts']  # Localhost
     env.user = project['deploy']['user']
 

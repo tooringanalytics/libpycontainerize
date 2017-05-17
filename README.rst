@@ -51,6 +51,8 @@ Overview
 .. |supported-versions| image:: https://img.shields.io/pypi/pyversions/pycontainerize.svg
     :alt: Supported versions
     :target: https://pypi.python.org/pypi/pycontainerize
+WARNING: WORK IN PROGRESS
+=========================
 
 .. |supported-implementations| image:: https://img.shields.io/pypi/implementation/pycontainerize.svg
     :alt: Supported implementations
