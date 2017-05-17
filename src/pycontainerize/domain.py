@@ -16,6 +16,7 @@ from constants import (
     DOMAIN_TEMPLATE_MAP,
     DOMAIN_CONFIG,
     DOMAIN_ATTRIB,
+    CONTEXT_ATTRIB,
     PROJECT_ATTRIB,
     APPS_ATTRIB,
     APPS_DIR,
@@ -98,6 +99,7 @@ class Domain(object):
                renderer,
                output_dir):
         context = {}
+        context[CONTEXT_ATTRIB] = DOMAIN_ATTRIB
         context[DOMAIN_ATTRIB] = self.to_dict()
         context[PROJECT_ATTRIB] = project
 

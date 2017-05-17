@@ -22,18 +22,25 @@ def read(*names, **kwargs):
     ).read()
 
 
+def readlines(*names, **kwargs):
+    return io.open(
+        join(dirname(__file__), *names),
+        encoding=kwargs.get('encoding', 'utf8')
+    ).readlines()
+
+
 setup(
     name='pycontainerize',
     version='0.1.0',
     license='BSD',
-    description='A containzeriA containerization and deployment tool for python applications and services',
+    description='A containerization and deployment tool for python applications and services',
     long_description='%s\n%s' % (
         re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.rst')),
         re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))
     ),
     author='Anshuman P.Kanetkar',
     author_email='apk@tooringanalytics.com',
-    url='https://github.com/tooringtest/libpycontainerize',
+    url='https://github.com/tooringanalytics/libpycontainerize',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
@@ -65,8 +72,24 @@ setup(
     keywords=[
         # eg: 'keyword1', 'keyword2', 'keyword3',
     ],
+    # install_requires=[
+    #     # eg: 'aspectlib==1.1.1', 'six>=1.7',
+    # ],
     install_requires=[
-        # eg: 'aspectlib==1.1.1', 'six>=1.7',
+        'boto3==1.4.4',
+        'botocore==1.5.46',
+        'docutils==0.13.1',
+        'ecdsa==0.13',
+        'Fabric==1.12.0',
+        'futures==3.1.1',
+        'Jinja2==2.8',
+        'jmespath==0.9.2',
+        'MarkupSafe==0.23',
+        'paramiko==1.17.2',
+        'pycrypto==2.6.1',
+        'python-dateutil==2.6.0',
+        's3transfer==0.1.10',
+        'six==1.10.0',
     ],
     extras_require={
         # eg:

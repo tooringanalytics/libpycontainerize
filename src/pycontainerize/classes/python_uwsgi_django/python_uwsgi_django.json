@@ -1,9 +1,11 @@
 {
+    "name": "python_uwsgi_django",
+
     "extends": [
         "python_supervisord",
-        "gitmixin",
-        "dbmixin",
-        "buildmixin"
+        "git_mixin",
+        "db_mixin",
+        "build_mixin"
     ],
 
     "definition": [
@@ -23,6 +25,12 @@
     ],
 
     "templates": [
+        {
+            "src": "templates/uwsgi.ini"
+        },
 
+        {
+            "src": "templates/uwsgi_params"
+        }
     ],
 }

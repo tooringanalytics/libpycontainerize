@@ -1,14 +1,17 @@
 {
+    "name": "git_mixin",
+
     "extends": [],
 
     "definition": [
         {
-            "name": "build",
+            "name": "git",
             "required": true,
-            "type": "BuildConfigDict",
+            "type": "GitConfigDict",
             "default": {}
         }
     ],
 
-    "templates": []
+    "templates": [
+    ]
 }

@@ -1,5 +1,6 @@
 #!/bin/bash
 CODE_DIR="{{ project.deploy.docker.code_dir }}"
+CONFIG_DIR="{{ project.deploy.docker.config_dir }}"
 
 cmd="$@"
 echo "__exec__.sh: Executing command ${cmd}"
@@ -14,7 +15,7 @@ cd ${directory}
 export {{ envar }}
 {% endfor %}
 
-echo "Loading virtualenv."
-source ${CODE_DIR}/venv/bin/activate
-
+# Execute the command
+${CONFIG_DIR}/__precmd__.sh
 ${cmd}
+${CONFIG_DIR}/__postcmd__.sh

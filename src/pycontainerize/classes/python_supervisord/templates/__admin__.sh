@@ -66,7 +66,7 @@ function execute_command {
     cmd="$@"
     echo "Executing Command ${cmd} as user {{ service.proc.user }}"
 
-    sudo -u {{ service.proc.user }} ${CONFIG_DIR}/exec_cmd_wrapper.sh ${cmd}
+    sudo -u {{ service.proc.user }} ${CONFIG_DIR}/__execcmd__.sh ${cmd}
 }
 
 function start_supervisord {
@@ -178,13 +178,12 @@ function start_service {
 function process_cmd {
 
     # Now execute the command asked.
-    export DJANGO_SECRET_KEY
 
     case "$@" in
         "ensure_venv")
             ensure_venv
             ;;
-        "update_repo")
+        "update")
             load_venv
             update_git_repo
             ;;

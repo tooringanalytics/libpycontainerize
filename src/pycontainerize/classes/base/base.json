@@ -14,22 +14,28 @@
 
     "templates": [
         {
-            "src": "templates/server.env",
-            "dst": "domains/{{ domain.name }}/services/{{ service.name }}/server.env",
-            "ctx": "domain"
-
+            "src": "templates/__env__.sh",
+            "perm": "770"
         },
 
         {
-            "src": "templates/configure-app.sh",
-            "dst": "domains/{{ domain.name }}/services/{{ service.name }}/configure-app.sh",
-            "ctx": "domain"
+            "src": "templates/__admin__.sh",
+            "perm": "770"
         },
 
         {
-            "src": "templates/exec_cmd_wrapper.sh",
-            "dst": "domains/{{ domain.name }}/services/{{ service.name }}/exec_cmd_wrapper.sh",
-            "ctx": "domain"
+            "src": "templates/__execcmd__.sh",
+            "perm": "770"
+        },
+
+        {
+            "src": "templates/__precmd__.sh",
+            "perm": "770"
+        },
+
+        {
+            "src": "templates/__postcmd__.sh",
+            "perm": "770"
         }
     ]
 

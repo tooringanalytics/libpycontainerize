@@ -14,6 +14,7 @@ DOMAINS_DIR = 'domains'
 CERTS_DIR = 'certs'
 
 # Object attributes
+CONTEXT_ATTRIB = 'context'
 APPS_ATTRIB = 'apps'
 SERVICES_ATTRIB = 'services'
 NETWORKS_ATTRIB = 'networks'

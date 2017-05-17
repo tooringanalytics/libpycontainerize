@@ -20,29 +20,29 @@ Overview
     :target: https://readthedocs.org/projects/libpycontainerize
     :alt: Documentation Status
 
-.. |travis| image:: https://travis-ci.org/tooringtest/libpycontainerize.svg?branch=master
+.. |travis| image:: https://travis-ci.org/tooringanalytics/libpycontainerize.svg?branch=master
     :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/tooringtest/libpycontainerize
+    :target: https://travis-ci.org/tooringanalytics/libpycontainerize
 
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/tooringtest/libpycontainerize?branch=master&svg=true
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/tooringanalytics/libpycontainerize?branch=master&svg=true
     :alt: AppVeyor Build Status
-    :target: https://ci.appveyor.com/project/tooringtest/libpycontainerize
+    :target: https://ci.appveyor.com/project/tooringanalytics/libpycontainerize
 
-.. |requires| image:: https://requires.io/github/tooringtest/libpycontainerize/requirements.svg?branch=master
+.. |requires| image:: https://requires.io/github/tooringanalytics/libpycontainerize/requirements.svg?branch=master
     :alt: Requirements Status
-    :target: https://requires.io/github/tooringtest/libpycontainerize/requirements/?branch=master
+    :target: https://requires.io/github/tooringanalytics/libpycontainerize/requirements/?branch=master
 
-.. |codecov| image:: https://codecov.io/github/tooringtest/libpycontainerize/coverage.svg?branch=master
+.. |codecov| image:: https://codecov.io/github/tooringanalytics/libpycontainerize/coverage.svg?branch=master
     :alt: Coverage Status
-    :target: https://codecov.io/github/tooringtest/libpycontainerize
+    :target: https://codecov.io/github/tooringanalytics/libpycontainerize
 
 .. |version| image:: https://img.shields.io/pypi/v/pycontainerize.svg
     :alt: PyPI Package latest release
     :target: https://pypi.python.org/pypi/pycontainerize
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/tooringtest/libpycontainerize/v0.1.0.svg
+.. |commits-since| image:: https://img.shields.io/github/commits-since/tooringanalytics/libpycontainerize/v0.1.0.svg
     :alt: Commits since latest release
-    :target: https://github.com/tooringtest/libpycontainerize/compare/v0.1.0...master
+    :target: https://github.com/tooringanalytics/libpycontainerize/compare/v0.1.0...master
 
 .. |wheel| image:: https://img.shields.io/pypi/wheel/pycontainerize.svg
     :alt: PyPI Wheel

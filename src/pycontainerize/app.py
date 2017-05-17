@@ -5,8 +5,10 @@ from constants import (
     APP_TEMPLATE_MAP,
     APP_CONFIG,
     APP_ATTRIB,
+    CONTEXT_ATTRIB,
     PROJECT_ATTRIB,
     DOMAIN_ATTRIB,
+    SERVICE_ATTRIB,
 )
 from errors import (
     UnableToLoadApp,
@@ -50,7 +52,9 @@ class App(object):
                renderer,
                output_dir):
         context = {}
+        context[CONTEXT_ATTRIB] = APP_ATTRIB
         context[APP_ATTRIB] = dict(self.app.items())
+        context[SERVICE_ATTRIB] = context[APP_ATTRIB]
         context[PROJECT_ATTRIB] = project
         context[DOMAIN_ATTRIB] = domain
         for (src, dst) in APP_TEMPLATE_MAP.items():

@@ -1,10 +1,12 @@
  {
+    "name": "db_mixin",
+
     "extends": [],
 
      "definition": [
         {
             "name": "db",
-            "reqiured": false,
+            "required": false,
             "type": "list(DBConfigDict)",
             "default": {}
         }

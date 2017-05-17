@@ -18,6 +18,7 @@ CONFIG_TEMPLATES_DIR = os.path.join(
     'config_templates',
 )
 
+CLASSES_DIR = 'classes'
 TYPES_DIR = 'types'
 
 ATTR_NAME = 'name'
@@ -75,6 +76,65 @@ class ObjectConfig(object):
         return config_template
 
     def parse_config_template(self, config_template):
+        '''Parse the given configuration template'''
+        for attrib in config_template:
+            if attrib[ATTR_REQUIRED]:
+                if attrib[ATTR_TYPE] in INBUILT_TYPES:
+                    setattr(self.obj, attrib[ATTR_NAME], attrib[ATTR_DEFAULT])
+                else:
+                    type_name = attrib[ATTR_TYPE]
+                    type_config = TypeConfig(type_name)
+                    type_config.initialize()
+                    setattr(self.obj, attrib[ATTR_NAME], type_config)
+
+    def to_python(self):
+        '''Traverse the object tree and generate a python representation'''
+        json_rep = {}
+        for attrib in self.config_template:
+            if hasattr(self.obj, attrib[ATTR_NAME]):
+                if attrib[ATTR_TYPE] in INBUILT_TYPES:
+                    json_rep[attrib[ATTR_NAME]] = getattr(
+                        self.obj,
+                        attrib[ATTR_NAME]
+                    )
+                elif RE_LIST_OF_TYPES.match(attrib[ATTR_TYPE]):
+                    lst = getattr(
+                        self.obj,
+                        attrib[ATTR_NAME]
+                    )
+                    json_rep[attrib[ATTR_NAME]] = [
+                        obj.to_python()
+                        for obj in lst
+                    ]
+                else:
+                    json_rep[attrib[ATTR_NAME]] = getattr(
+                        self.obj, attrib[ATTR_NAME]
+                    ).to_python()
+        return json_rep
+
+
+class ClassConfig(ObjectConfig):
+    '''Configuration object for service and application classes'''
+    def __init__(self, class_name):
+        self.config_template_dir = os.path.join(
+            CLASSES_DIR,
+            class_name,
+        )
+        self.config_template_file = os.path.join(
+            self.config_template_dir,
+            '.'.join((class_name, 'json'))
+        )
+        super(ClassConfig, self).__init__()
+
+    def parse_config_template(self, config_template):
+        if ATTR_NAME in config_template:
+            setattr(self.obj, ATTR_NAME, config_template[ATTR_NAME])
+        if ATTR_EXTENDS in config_template:
+            setattr(self.obj, ATTR_EXTENDS, config_template[ATTR_EXTENDS])
+        if ATTR_DEFINITION in config_template:
+            setattr(self.obj, ATTR_DEFINITION, config_template[ATTR_DEFINITION])
+        if ATTR_TEMPLATES in config_template:
+            setattr(self.obj, ATTR_TEMPLATES, config_template[ATTR_DEFINITION])
         '''Parse the given configuration template'''
         for attrib in config_template:
             if attrib[ATTR_REQUIRED]:

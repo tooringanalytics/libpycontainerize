@@ -8,6 +8,8 @@ from errors import (
     UnableToRenderTemplate,
 )
 from constants import (
+    CONTEXT_ATTRIB,
+    PROJECT_ATTRIB,
     DOMAINS_ATTRIB,
     NETWORKS_ATTRIB,
     DOMAINS_DIR,
@@ -103,7 +105,8 @@ class Project(object):
         ''' Render the templates for this project '''
         # Set up the rendering context
         context = {
-            'project': self.to_dict()
+            CONTEXT_ATTRIB: PROJECT_ATTRIB,
+            PROJECT_ATTRIB: self.to_dict()
         }
         # Render each template file in PROJECT_TEMPLATE_MAP
         for (src, dst) in PROJECT_TEMPLATE_MAP.items():

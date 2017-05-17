@@ -7,7 +7,6 @@ CERTS_DIR="{{ project.deploy.docker.certs_dir }}"
 DATA_DIR="{{ project.deploy.docker.data_dir }}"
 LOGS_DIR="{{ project.deploy.docker.logs_dir }}"
 PROJECT_DIR="${CODE_DIR}/{{ service.start.root_dir }}"
-REQUIREMENTS_FILE="${PROJECT_DIR}/{{ service.start.requirements }}"
 
 # Service settings
 SERVICE_NAME="{{ service.name }}"
@@ -55,25 +54,18 @@ function createuser {
     setperms
 }
 
+
 function execute_command {
     cmd="$@"
-    echo "Executing Command ${cmd} as user {{ service.proc.user }}"
-
-    sudo -u {{ service.proc.user }} ${CONFIG_DIR}/exec_cmd_wrapper.sh ${cmd}
-}
-
-function custom_cmd {
+    echo "Executing Command ${cmd} as user {{ service.proc.user }} in directory `pwd`"
     cdproj
-    echo "Executing command $@ in directory `pwd`"
-    execute_command "$@"
+    sudo -u {{ service.proc.user }} ${CONFIG_DIR}/__execcmd__.sh ${cmd}
 }
+
 
 function start_service {
     cdproj
-    # Start off all servers...
-    echo "Starting Service"
-    echo `pwd`
-    # start_supervisord
+    echo "Starting {{ service.name }}..."
     execute_command "{{ service.start.start_cmd }}"
 }
 
@@ -81,14 +73,13 @@ function start_service {
 function process_cmd {
 
     # Now execute the command asked.
-    export DJANGO_SECRET_KEY
 
     case "$@" in
         "start")
             start_service
             ;;
         *)
-            custom_cmd "$@"
+            execute_command "$@"
             ;;
     esac;
 }
