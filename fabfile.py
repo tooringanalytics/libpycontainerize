@@ -16,10 +16,7 @@ import pycontainerize
 from pycontainerize import Containerizer
 
 
-LOCAL_KEYFILE = os.path.join(
-    os.environ['HOME'],
-    'tooringanalytics_aws_ec2_debian_instance.pem'
-)
+LOCAL_KEYFILE = os.environ['LOCAL_KEYFILE']
 
 
 def load_project(project_name):
@@ -67,7 +64,7 @@ def using_project(project_name):
         project['name'],
     )
     env.local_home = os.environ['HOME']
-    env.hosts = project['deploy']['hosts']  # Localhost
+    env.hosts = project['deploy']['hosts']
     env.user = project['deploy']['user']
 
     # key_filename

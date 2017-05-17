@@ -21,10 +21,16 @@ CONFIG_TEMPLATES_DIR = os.path.join(
 CLASSES_DIR = 'classes'
 TYPES_DIR = 'types'
 
+BASE_CLASS_NAME = 'base'
+ATTR_EXTENDS = 'extends'
+ATTR_DEFINITION = 'definition'
+ATTR_TEMPLATES = 'templates'
 ATTR_NAME = 'name'
 ATTR_REQUIRED = 'required'
 ATTR_TYPE = 'type'
 ATTR_DEFAULT = 'default'
+ATTR_SRC = 'src'
+ATTR_PERM = 'perm'
 
 PRJ_ATTR_DOMAINS = 'domains'
 
@@ -54,10 +60,10 @@ class ObjectConfig(object):
     def __init__(self):
         self.obj = ObjectProto()
 
-    def initialize(self):
+    def initialize(self, obj=None):
         '''Load and parse the configuration template for this object'''
         config_template = self.load_config_template()
-        self.parse_config_template(config_template)
+        self.parse_config_template(config_template, obj)
         self.config_template = config_template
 
     def load_config_template(self):
@@ -75,7 +81,9 @@ class ObjectConfig(object):
             raise TypeDefinitionError(config_template_path + ': ' + str(e))
         return config_template
 
-    def parse_config_template(self, config_template):
+    def parse_config_template(self, config_template, obj=None):
+        if obj is not None:
+            self.obj = obj
         '''Parse the given configuration template'''
         for attrib in config_template:
             if attrib[ATTR_REQUIRED]:
@@ -126,30 +134,32 @@ class ClassConfig(ObjectConfig):
         )
         super(ClassConfig, self).__init__()
 
+    def copy_templates(self, templates):
+        for template in templates:
+            template_file = template[ATTR_SRC]
+            template_perm = template[ATTR_PERM]
+
     def parse_config_template(self, config_template):
         if ATTR_NAME in config_template:
             setattr(self.obj, ATTR_NAME, config_template[ATTR_NAME])
         if ATTR_EXTENDS in config_template:
-            setattr(self.obj, ATTR_EXTENDS, config_template[ATTR_EXTENDS])
+            base_classes = config_template[ATTR_EXTENDS]
         if ATTR_DEFINITION in config_template:
-            setattr(self.obj, ATTR_DEFINITION, config_template[ATTR_DEFINITION])
+            type_definitions = config_template[ATTR_DEFINITION]
         if ATTR_TEMPLATES in config_template:
-            setattr(self.obj, ATTR_TEMPLATES, config_template[ATTR_DEFINITION])
-        '''Parse the given configuration template'''
-        for attrib in config_template:
-            if attrib[ATTR_REQUIRED]:
-                if attrib[ATTR_TYPE] in INBUILT_TYPES:
-                    setattr(self.obj, attrib[ATTR_NAME], attrib[ATTR_DEFAULT])
-                else:
-                    type_name = attrib[ATTR_TYPE]
-                    type_config = TypeConfig(type_name)
-                    type_config.initialize()
-                    setattr(self.obj, attrib[ATTR_NAME], type_config)
+            templates = config_template[ATTR_DEFINITION]
+        base_class_config = ClassConfig(BASE_CLASS_NAME)
+        base_class_config.initialize(self.obj)
+        for base_class in base_classes:
+            base_class_config = ClassConfig(base_class)
+            base_class_config.initialize(self.obj)
+        self.copy_templates(templates)
+        super(ClassConfig, self).parse_config_template(type_definitions)
 
     def to_python(self):
         '''Traverse the object tree and generate a python representation'''
         json_rep = {}
-        for attrib in self.config_template:
+        for attrib in self.config_template[ATTR_DEFINITION]:
             if hasattr(self.obj, attrib[ATTR_NAME]):
                 if attrib[ATTR_TYPE] in INBUILT_TYPES:
                     json_rep[attrib[ATTR_NAME]] = getattr(
