@@ -1,0 +1,8 @@
+[
+    {
+        "name": "__any__",
+        "required": false,
+        "type": "ContainerDict",
+        "default": {}
+    }
+]

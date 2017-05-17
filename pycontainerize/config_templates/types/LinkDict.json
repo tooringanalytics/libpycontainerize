@@ -1,0 +1,16 @@
+[
+    {
+        "name": "service",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "alias",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+]

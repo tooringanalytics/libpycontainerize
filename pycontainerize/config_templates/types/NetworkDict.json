@@ -1,0 +1,14 @@
+[
+    {
+        "name": "name",
+        "required": true,
+        "type": "str",
+        "default": "<network-name>"
+    },
+    {
+        "name": "driver",
+        "required": true,
+        "type": "str",
+        "default": "bridge"
+    }
+]

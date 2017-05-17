@@ -1,0 +1,30 @@
+[
+    {
+        "name": "gid",
+        "required": true,
+        "type": "int",
+        "default": 1000
+    },
+
+    {
+        "name": "uid",
+        "required": true,
+        "type": "int",
+        "default": 1000
+    },
+
+    {
+        "name": "user",
+        "required": true,
+        "type": "str",
+        "default": "tooring"
+    },
+
+    {
+        "name": "loglevel",
+        "required": true,
+        "type": "str",
+        "default": "debug"
+    }
+
+]

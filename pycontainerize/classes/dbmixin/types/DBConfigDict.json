@@ -1,0 +1,29 @@
+[
+    {
+        "name": "name",
+        "required": true,
+        "type": "str",
+        "default": ""
+    }
+
+    {
+        "name": "user",
+        "required": false,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "password",
+        "required": false,
+        "type": "str",
+        "default": ""
+    }
+
+    {
+        "name": "url",
+        "required": false,
+        "type": "str",
+        "default": ""
+    }
+]

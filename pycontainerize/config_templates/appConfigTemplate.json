@@ -1,0 +1,36 @@
+[
+    {
+        "name": "name",
+        "required": "true",
+        "type": "str",
+        "default": "<service-name>"
+    },
+
+    {
+        "name": "class",
+        "required": "true",
+        "type": "list",
+        "default": []
+    },
+
+    {
+        "name": "version",
+        "required": true,
+        "type": "str",
+        "default": "1.0"
+    },
+
+    {
+        "name": "mount_point",
+        "required": true,
+        "type": "str",
+        "default": "/"
+    },
+
+    {
+        "name": "container",
+        "required": true,
+        "type": "ContainerDict",
+        "default": {}
+    }
+]

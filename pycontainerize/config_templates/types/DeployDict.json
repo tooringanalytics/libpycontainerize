@@ -1,0 +1,29 @@
+[
+        {
+            "name": "docker",
+            "required": true,
+            "type": "DockerDict",
+            "default": {}
+        },
+
+        {
+            "name": "hosts",
+            "required": true,
+            "type": "list",
+            "default": []
+        },
+
+        {
+            "name": "server",
+            "required": true,
+            "type": "ServerDict",
+            "default": {}
+        },
+
+        {
+            "name": "user",
+            "required": true,
+            "type": "str",
+            "default": "<username>"
+        }
+]

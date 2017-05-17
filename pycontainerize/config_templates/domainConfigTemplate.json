@@ -1,0 +1,65 @@
+[
+    {
+        "name": "name",
+        "required": true,
+        "type": "str",
+        "default": "domain.name"
+    },
+
+    {
+        "name": "server_name",
+        "required": true,
+        "type": "str",
+        "default": "<server-name>"
+    },
+
+    {
+        "name": "server_fqdn",
+        "required": true,
+        "type": "str",
+        "default": "fqdn.domain.name"
+    },
+
+    {
+        "name": "server_secure_url",
+        "required": true,
+        "type": "str",
+        "default": "<https-url>"
+    },
+
+    {
+        "name": "default_server",
+        "required": true,
+        "type": "boolean",
+        "default": false
+    },
+
+    {
+        "name": "ssl_certificate",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "ssl_certificate_key",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "apps",
+        "required": true,
+        "type": "list",
+        "default": []
+    },
+
+    {
+        "name": "services",
+        "required": true,
+        "type": "list",
+        "default": []
+    }
+
+]

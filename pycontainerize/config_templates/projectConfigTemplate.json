@@ -1,0 +1,65 @@
+[
+    {
+        "name": "name",
+        "required": true,
+        "type": "str",
+        "default": "tooringanalytics.in"
+    },
+
+    {
+        "name": "version",
+        "required": true,
+        "type": "str",
+        "default": "1.0"
+    },
+
+    {
+        "name": "domains",
+        "required": true,
+        "type": "list",
+        "default": []
+    },
+
+    {
+        "name": "deploy",
+        "required": true,
+        "type": "DeployDict",
+        "default": {}
+    },
+
+    {
+        "name": "users",
+        "required": false,
+        "type": "ContainerUsersDict",
+        "default": {}
+    },
+
+    {
+        "name": "services",
+        "required": true,
+        "type": "ServicesDict",
+        "default": {}
+    },
+
+    {
+        "name": "serviceOrder",
+        "required": true,
+        "type": "list",
+        "default": []
+    },
+
+    {
+        "name": "env",
+        "required": false,
+        "type": "dict",
+        "default": {}
+    },
+
+    {
+        "name": "networks",
+        "required": true,
+        "type": "list(NetworkDict)",
+        "default": []
+    }
+
+]

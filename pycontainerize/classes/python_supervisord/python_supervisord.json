@@ -1,0 +1,57 @@
+{
+    "extends": [
+        "base"
+    ],
+
+    "definition": [
+        {
+            "name": "start",
+            "required": true,
+            "type": "PythonSupervisordDict",
+            "default": {}
+        },
+
+        {
+            "name": "supervisord",
+            "required": true,
+            "type": "SupervisordConfigDict",
+            "default": {}
+        }
+
+    ],
+
+    "templates": [
+        {
+            "src": "templates/server.env",
+            "dst": "domains/{{ domain.name }}/services/{{ service.name }}/server.env",
+            "ctx": "domain"
+
+        },
+
+        {
+            "src": "templates/supervisor-app.conf",
+            "dst": "domains/{{ domain.name }}/services/{{ service.name }}/supervisor-app.conf",
+            "ctx": "domain"
+        },
+
+        {
+            "src": "templates/supervisord.conf",
+            "dst": "domains/{{ domain.name }}/services/{{ service.name }}/supervisord.conf",
+            "ctx": "domain"
+        },
+
+        {
+            "src": "templates/configure-app.sh",
+            "dst": "domains/{{ domain.name }}/services/{{ service.name }}/configure-app.sh",
+            "ctx": "domain"
+        },
+
+        {
+            "src": "templates/exec_cmd_wrapper.sh",
+            "dst": "domains/{{ domain.name }}/services/{{ service.name }}/exec_cmd_wrapper.sh",
+            "ctx": "domain"
+        }
+    ]
+
+}
+

@@ -1,0 +1,15 @@
+{
+    "extends": [],
+
+    "definition": [
+        {
+            "name": "git",
+            "required": true,
+            "type": "GitConfigDict",
+            "default": {}
+        }
+    ],
+
+    "templates": [
+    ]
+}

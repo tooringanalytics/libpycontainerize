@@ -1,0 +1,37 @@
+{
+    "name": "base",
+
+    "extends": [],
+
+    "definition": [
+        {
+            "name": "env",
+            "required": false,
+            "type": "dict",
+            "default": {}
+        }
+    ],
+
+    "templates": [
+        {
+            "src": "templates/server.env",
+            "dst": "domains/{{ domain.name }}/services/{{ service.name }}/server.env",
+            "ctx": "domain"
+
+        },
+
+        {
+            "src": "templates/configure-app.sh",
+            "dst": "domains/{{ domain.name }}/services/{{ service.name }}/configure-app.sh",
+            "ctx": "domain"
+        },
+
+        {
+            "src": "templates/exec_cmd_wrapper.sh",
+            "dst": "domains/{{ domain.name }}/services/{{ service.name }}/exec_cmd_wrapper.sh",
+            "ctx": "domain"
+        }
+    ]
+
+}
+

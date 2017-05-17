@@ -1,0 +1,37 @@
+[
+    {
+        "name": "name",
+        "required": true,
+        "type": "str",
+        "default": "<repo-name>"
+    },
+
+    {
+        "name": "private_key_file",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "public_key_file",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "url",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "branch",
+        "required": true,
+        "type": "str",
+        "default": ""
+    }
+
+]

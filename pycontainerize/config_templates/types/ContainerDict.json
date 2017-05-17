@@ -1,0 +1,51 @@
+[
+    {
+        "name": "image",
+        "required": true,
+        "type": "str",
+        "default": "<docker-container-image>"
+    },
+
+    {
+        "name": "alias",
+        "required": true,
+        "type": "str",
+        "default": "<instance-alias>"
+    },
+
+    {
+        "name": "volumes",
+        "required": false,
+        "type": "list(VolumeDict)",
+        "default": []
+    },
+
+    {
+        "name": "links",
+        "required": false,
+        "type": "list(LinkDict)",
+        "default": []
+    },
+
+    {
+        "name": "ports",
+        "required": false,
+        "type": "list",
+        "default": []
+    },
+
+    {
+        "name": "environment",
+        "required": false,
+        "type": "dict",
+        "default": {}
+    },
+
+    {
+        "name": "networks",
+        "required": false,
+        "type": "list",
+        "default": []
+    }
+
+]

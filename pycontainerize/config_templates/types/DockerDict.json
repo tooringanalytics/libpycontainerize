@@ -1,0 +1,44 @@
+[
+    {
+        "name": "certs_dir",
+        "required": true,
+        "type": "str",
+        "default": "/home/docker/certs"
+    },
+
+    {
+        "name": "code_dir",
+        "required": true,
+        "type": "str",
+        "default": "/home/docker/code"
+    },
+
+    {
+        "name": "config_dir",
+        "required": true,
+        "type": "str",
+        "default": "/home/docker/config"
+    },
+
+    {
+        "name": "data_dir",
+        "required": true,
+        "type": "str",
+        "default": "/home/docker/data"
+    },
+
+    {
+        "name": "db_dir",
+        "required": true,
+        "type": "str",
+        "default": "/home/docker/db"
+    },
+
+    {
+        "name": "logs_dir",
+        "required": true,
+        "type": "str",
+        "default": "/home/docker/logs"
+    }
+
+]

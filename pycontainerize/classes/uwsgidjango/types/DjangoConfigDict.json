@@ -1,0 +1,43 @@
+[
+    {
+        "name": "project",
+        "required": true,
+        "type": "DjangoProjectDict",
+        "default": {}
+    },
+
+    {
+        "name": "requirements",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "secret_key",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "settings_module",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "uwsgi_module",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "debug",
+        "required": true,
+        "type": "int",
+        "default": 0
+    },
+]

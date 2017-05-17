@@ -1,0 +1,28 @@
+{
+    "extends": [
+        "python_supervisord",
+        "gitmixin",
+        "dbmixin",
+        "buildmixin"
+    ],
+
+    "definition": [
+        {
+            "name": "uwsgi",
+            "required": true,
+            "type": "UWSGIConfigDict",
+            "default": {}
+        },
+
+        {
+            "name": "django",
+            "required": true,
+            "type": "DjangoConfigDict",
+            "default": {}
+        }
+    ],
+
+    "templates": [
+
+    ],
+}

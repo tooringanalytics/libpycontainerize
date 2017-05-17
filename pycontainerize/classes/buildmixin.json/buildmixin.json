@@ -1,0 +1,14 @@
+{
+    "extends": [],
+
+    "definition": [
+        {
+            "name": "build",
+            "required": true,
+            "type": "BuildConfigDict",
+            "default": {}
+        }
+    ],
+
+    "templates": []
+}

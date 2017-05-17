@@ -1,0 +1,23 @@
+[
+    {
+        "name": "extends",
+        "required": true,
+        "type": "list",
+        "default": []
+    },
+
+    {
+        "name": "definition",
+        "required": true,
+        "type": "list",
+        "default": []
+    },
+
+    {
+        "name": "templates",
+        "required": true,
+        "type": "list",
+        "default": []
+    }
+
+]

@@ -1,0 +1,15 @@
+ {
+    "extends": [],
+
+     "definition": [
+        {
+            "name": "db",
+            "reqiured": false,
+            "type": "list(DBConfigDict)",
+            "default": {}
+        }
+    ],
+
+    "templates": [
+    ]
+}

@@ -1,0 +1,22 @@
+[
+    {
+        "name": "port",
+        "required": true,
+        "type": "int",
+        "default": 8001
+    },
+
+    {
+        "name": "processes",
+        "required": true,
+        "type": "int",
+        "default": 4
+    },
+
+    {
+        "name": "master",
+        "required": true,
+        "type": "boolean",
+        "default": true
+    }
+]

@@ -1,0 +1,29 @@
+[
+    {
+        "name": "build_dir",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "build_cmd",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "install_dir",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "install_cmd",
+        "required": true,
+        "type": "str",
+        "default": ""
+    }
+]

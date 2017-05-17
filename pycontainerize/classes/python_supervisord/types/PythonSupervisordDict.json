@@ -1,0 +1,22 @@
+[
+    {
+        "name": "root_dir",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "requirements",
+        "required": true,
+        "type": "str",
+        "default": ""
+    },
+
+    {
+        "name": "start_cmd",
+        "required": true,
+        "type": "str",
+        "default": ""
+    }
+]
