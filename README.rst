@@ -61,7 +61,7 @@ WARNING: WORK IN PROGRESS
 
 .. end-badges
 
-A containzeriA containerization and deployment tool for python applications and services
+A containerization and deployment tool for python applications and services
 
 * Free software: BSD license
 
