@@ -35,3 +35,5 @@ __all__ = [
     'DEFAULT_OUTPUT_DIR',
     'DEFAULT_TEMPLATES_DIR',
 ]
+
+__version__ = '0.1.0'
