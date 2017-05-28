@@ -1,35 +1,35 @@
 from pycontainerize.containerize import (
     Containerizer,
 )
-from project import (
+from pycontainerize.project import (
     Project,
 )
-from domain import (
+from pycontainerize.domain import (
     Domain,
 )
-from service import (
+from pycontainerize.service import (
     Service,
 )
-from network import (
+from pycontainerize.network import (
     Networks,
     Network,
 )
-from app import (
+from pycontainerize.app import (
     App,
 )
-from constants import (
+from pycontainerize.constants import (
     DEFAULT_PROJECTS_DIR,
     DEFAULT_OUTPUT_DIR,
     DEFAULT_TEMPLATES_DIR,
 )
-# from factory import (
-#     TypeConfig,
-#     ClassConfig,
-#     ProjectConfig,
-#     DomainConfig,
-#     AppConfig,
-#     ObjectFactory,
-# )
+from pycontainerize.factory import (
+    TypeConfig,
+    ClassConfig,
+    ProjectConfig,
+    DomainConfig,
+    AppConfig,
+    ObjectFactory,
+)
 
 
 __all__ = [
@@ -40,12 +40,12 @@ __all__ = [
     'Networks',
     'Network',
     'App',
-#     'TypeConfig',
-#     'ClassConfig',
-#     'ProjectConfig',
-#     'DomainConfig',
-#     'AppConfig',
-#     'ObjectFactory',
+    'TypeConfig',
+    'ClassConfig',
+    'ProjectConfig',
+    'DomainConfig',
+    'AppConfig',
+    'ObjectFactory',
     'DEFAULT_PROJECTS_DIR',
     'DEFAULT_OUTPUT_DIR',
     'DEFAULT_TEMPLATES_DIR',
