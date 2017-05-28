@@ -1,0 +1,31 @@
+[
+    {
+        "name": "name",
+        "required": true,
+        "type": "string",
+        "default": ""
+    },
+
+    {
+        "name": "required",
+        "required": true,
+        "type": "boolean",
+        "default": true
+    },
+
+    {
+        "name": "type",
+        "required": true,
+        "type": "string",
+        "default": "int"
+    },
+
+    {
+        "name": "default",
+        "required": true,
+        "type": "int",
+        "default": 0
+    }
+]
+
+

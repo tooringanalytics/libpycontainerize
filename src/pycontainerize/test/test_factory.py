@@ -2,6 +2,7 @@ import unittest
 from pycontainerize.factory import (
     TypeConfig,
     ProjectConfig,
+    DomainConfig,
     ObjectFactory,
 )
 from pycontainerize.errors import InvalidTypeError
@@ -66,3 +67,37 @@ class TestTypeConfig(FactoryTestCase):
         docker = deploy['docker']
         self.assertTrue('certs_dir' in docker)
         self.assertEquals(docker['certs_dir'], '/home/docker/certs')
+
+
+class TestDomainConfig(FactoryTestCase):
+
+    def setUp(self):
+        project_config = ProjectConfig()
+        project_config.initialize()
+        project_config.obj.name = 'test_project'
+        project_config.obj.version = '1.1.4'
+
+        factory = ObjectFactory()
+        project = factory.create_project(project_config)
+
+        self.factory = factory
+        self.project = project
+
+    def tearDown():
+        pass
+
+    def test_domain(self):
+        domain_config = DomainConfig()
+        domain_config.initialize()
+        domain_config.obj.name = 'test.domain.com'
+        domain = self.factory.create_domain(self.project, domain_config)
+        self.assertTrue('name' in domain)
+        self.assertTrue('server_name' in domain)
+        self.assertTrue('server_fqdn' in domain)
+        self.assertTrue('server_secure_url' in domain)
+        self.assertTrue('default_server' in domain)
+        self.assertTrue('ssl_certificate' in domain)
+        self.assertTrue('ssl_certificate_key' in domain)
+        self.assertTrue('apps' in domain)
+        self.assertTrue('services' in domain)
+        self.assertTrue('test.domain.com' in set(self.project['domains']))

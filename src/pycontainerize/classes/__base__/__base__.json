@@ -9,6 +9,27 @@
             "required": false,
             "type": "dict",
             "default": {}
+        },
+
+        {
+            "name": "version",
+            "required": true,
+            "type": "str",
+            "default": "1.0"
+        },
+
+        {
+            "name": "mount_point",
+            "required": true,
+            "type": "str",
+            "default": "/"
+        },
+
+        {
+            "name": "container",
+            "required": true,
+            "type": "ContainerDict",
+            "default": {}
         }
     ],
 

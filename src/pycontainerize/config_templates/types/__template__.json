@@ -1,0 +1,15 @@
+[
+    {
+        "name": "src",
+        "required": true,
+        "type": "string",
+        "default": ""
+    },
+
+    {
+        "name": "perm",
+        "required": true,
+        "type": "string",
+        "default": ""
+    }
+]

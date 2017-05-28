@@ -11,6 +11,9 @@ from errors import (
 from project import (
     Project,
 )
+from domain import (
+    Domain,
+)
 DEFAULT_PROJECTS_DIR = 'projects'
 
 CONFIG_TEMPLATES_DIR = os.path.join(
@@ -21,7 +24,8 @@ CONFIG_TEMPLATES_DIR = os.path.join(
 CLASSES_DIR = 'classes'
 TYPES_DIR = 'types'
 
-BASE_CLASS_NAME = 'base'
+TEMPLATES_ATTR = '__templates__'
+BASE_CLASS_NAME = '__base__'
 ATTR_EXTENDS = 'extends'
 ATTR_DEFINITION = 'definition'
 ATTR_TEMPLATES = 'templates'
@@ -33,6 +37,10 @@ ATTR_SRC = 'src'
 ATTR_PERM = 'perm'
 
 PRJ_ATTR_DOMAINS = 'domains'
+PRJ_ATTR_SERVICES = 'services'
+DOM_ATTR_APPS = 'apps'
+DOM_ATTR_SERVICES = 'services'
+
 
 INBUILT_TYPES = set([
     'str',
@@ -41,6 +49,9 @@ INBUILT_TYPES = set([
     'boolean',
     'list',
     'dict',
+    '__type__',
+    '__class__',
+    '__template__'
 ])
 
 PROJECT_CONFIG_FILE = 'projectConfig.json'
@@ -52,11 +63,14 @@ RE_LIST_OF_TYPES = re.compile(r'^list\((\w+)\)$')
 
 class ObjectProto(object):
     '''A Skeleton Object Prototype used to hold attributes'''
-    pass
+
+    def __init__(self):
+        self.__templates__ = []
 
 
 class ObjectConfig(object):
     '''Base class for all containerizer object configurations'''
+
     def __init__(self):
         self.obj = ObjectProto()
 
@@ -123,6 +137,7 @@ class ObjectConfig(object):
 
 class ClassConfig(ObjectConfig):
     '''Configuration object for service and application classes'''
+
     def __init__(self, class_name):
         self.config_template_dir = os.path.join(
             CLASSES_DIR,
@@ -134,10 +149,20 @@ class ClassConfig(ObjectConfig):
         )
         super(ClassConfig, self).__init__()
 
-    def copy_templates(self, templates):
+    def add_templates(self, templates):
+        '''Copies over class template files into the project's directory'''
+        templates_list = getattr(self.obj, TEMPLATES_ATTR)
         for template in templates:
-            template_file = template[ATTR_SRC]
+            template_file = os.path.join(
+                self.config_template_dir,
+                template[ATTR_SRC]
+            )
             template_perm = template[ATTR_PERM]
+            templates_list.append({
+                ATTR_SRC: template_file,
+                ATTR_PERM: template_perm,
+            })
+        setattr(self.obj, TEMPLATES_ATTR, templates_list)
 
     def parse_config_template(self, config_template):
         if ATTR_NAME in config_template:
@@ -148,12 +173,15 @@ class ClassConfig(ObjectConfig):
             type_definitions = config_template[ATTR_DEFINITION]
         if ATTR_TEMPLATES in config_template:
             templates = config_template[ATTR_DEFINITION]
+        # Every class config object annotates the self.obj object
+        # with attributes it has defined. Attributes are overriden
+        # in the order in which classes are specified.
         base_class_config = ClassConfig(BASE_CLASS_NAME)
         base_class_config.initialize(self.obj)
         for base_class in base_classes:
             base_class_config = ClassConfig(base_class)
             base_class_config.initialize(self.obj)
-        self.copy_templates(templates)
+        self.add_templates(templates)
         super(ClassConfig, self).parse_config_template(type_definitions)
 
     def to_python(self):
@@ -184,6 +212,7 @@ class ClassConfig(ObjectConfig):
 
 class TypeConfig(ObjectConfig):
     '''Configuration object for cutom types'''
+
     def __init__(self, type_name):
         self.config_template_file = os.path.join(
             TYPES_DIR,
@@ -202,12 +231,12 @@ class DomainConfig(ObjectConfig):
     config_template_file = 'domainConfigTemplate.json'
 
 
-class AppConfig(ObjectConfig):
+class AppConfig(ClassConfig):
     '''Configuration object for apps'''
     config_template_file = 'appConfigTemplate.json'
 
 
-class ServiceConfig(ObjectConfig):
+class ServiceConfig(ClassConfig):
     '''Configuration object for services'''
     config_template_file = 'serviceConfigTemplate.json'
 
@@ -227,18 +256,21 @@ class ObjectFactory(object):
         pass
 
     def create_app(self, domain, app_config):
+        domain[DOM_ATTR_APPS].append(app_config.obj.name)
         return app_config.to_python()
 
     def remove_app(self, domain, app_name):
         pass
 
     def create_project_service(self, project, service_config):
+        project[PRJ_ATTR_SERVICES].append(service_config.obj.name)
         return service_config.to_python()
 
     def remove_project_service(self, project, service_name):
         pass
 
     def create_domain_service(self, domain, service_config):
+        domain[DOM_ATTR_SERVICES].append(service_config.obj.name)
         return service_config.to_python()
 
     def remove_domain_service(self, domain, service_name):
@@ -309,7 +341,8 @@ class FactoryApp(object):
 
         domain_root = os.path.join(
             project_root,
-            args.domain_name
+            PRJ_ATTR_DOMAINS,
+            args.domain_name,
         )
 
         if not os.path.exists(domain_root):
@@ -340,6 +373,73 @@ class FactoryApp(object):
         with open(output_file, 'w') as fp:
             json.dump(
                 project,
+                fp,
+                sort_keys=True,
+                indent=4,
+                separators=(',', ': '),
+            )
+
+    def exec_create_app(self, args, extra_args):
+        projects_dir = DEFAULT_PROJECTS_DIR \
+            if args.projects_dir is None else args.projects_dir
+
+        project_root = os.path.join(
+            projects_dir,
+            args.project_name
+        )
+
+        project = Project.load(project_root).to_python()
+
+        domain_root = os.path.join(
+            project_root,
+            PRJ_ATTR_DOMAINS,
+            args.domain_name,
+        )
+
+        domain = Domain.load(domain_root)
+
+        app_config = AppConfig()
+        app_config.initialize()
+        app_config.obj.name = args.app_name
+
+        factory = ObjectFactory()
+
+        app = factory.create_app(project, domain, app_config)
+
+        app_root = os.path.join(
+            domain_root,
+            DOM_ATTR_APPS,
+            args.app_name,
+        )
+
+        if not os.path.exists(app_root):
+            os.makedirs(app_root)
+
+        output_file = os.path.join(
+            app_root,
+            APP_CONFIG_FILE,
+        )
+
+        with open(output_file, 'w') as fp:
+            json.dump(
+                app,
+                fp,
+                sort_keys=True,
+                indent=4,
+                separators=(',', ': '),
+            )
+
+        if not os.path.exists(domain_root):
+            os.makedirs(domain_root)
+
+        output_file = os.path.join(
+            domain_root,
+            DOMAIN_CONFIG_FILE,
+        )
+
+        with open(output_file, 'w') as fp:
+            json.dump(
+                domain,
                 fp,
                 sort_keys=True,
                 indent=4,
@@ -389,6 +489,14 @@ class FactoryApp(object):
         # Setup options for parser
         self.init_create_project_parser(create_project_parser)
 
+        create_project_service_parser = subparsers.add_parser(
+            'create_project_service',
+            help='Create a new service for the given project'
+        )
+
+        # Setup options for parser
+        self.init_create_project_service_parser(create_project_service_parser)
+
         create_domain_parser = subparsers.add_parser(
             'create_domain',
             help='Create a new domain inside a project'
@@ -396,6 +504,14 @@ class FactoryApp(object):
 
         # Setup options for parser
         self.init_create_domain_parser(create_domain_parser)
+
+        create_domain_service_parser = subparsers.add_parser(
+            'create_domain_service',
+            help='Create a new service inside a domain'
+        )
+
+        # Setup options for parser
+        self.init_create_domain_service_parser(create_domain_service_parser)
 
         return argparser
 
@@ -420,6 +536,26 @@ class FactoryApp(object):
 
         return parser
 
+    def init_create_project_service_parser(self, parser):
+        '''Setup options for create_project_service'''
+        parser.add_argument(
+            'project_name',
+            help='Name of the project'
+        )
+
+        parser.add_argument(
+            'service_name',
+            help='Name of the service'
+        )
+
+        parser.add_argument(
+            '-p',
+            '--projects-dir',
+            help='Output directory (default: %s)' % DEFAULT_PROJECTS_DIR,
+        )
+
+        return parser
+
     def init_create_domain_parser(self, parser):
         '''Setup options for create_domain'''
         parser.add_argument(
@@ -430,6 +566,56 @@ class FactoryApp(object):
         parser.add_argument(
             'domain_name',
             help='Name of the domain'
+        )
+
+        parser.add_argument(
+            '-p',
+            '--projects-dir',
+            help='Output directory (default: %s)' % DEFAULT_PROJECTS_DIR,
+        )
+
+        return parser
+
+    def init_create_domain_service_parser(self, parser):
+        '''Setup options for create_domain_service'''
+        parser.add_argument(
+            'project_name',
+            help='Name of the project'
+        )
+
+        parser.add_argument(
+            'domain_name',
+            help='Name of the domain'
+        )
+
+        parser.add_argument(
+            'service_name',
+            help='Name of the service'
+        )
+
+        parser.add_argument(
+            '-p',
+            '--projects-dir',
+            help='Output directory (default: %s)' % DEFAULT_PROJECTS_DIR,
+        )
+
+        return parser
+
+    def init_create_app_parser(self, parser):
+        '''Setup options for create_app'''
+        parser.add_argument(
+            'project_name',
+            help='Name of the project'
+        )
+
+        parser.add_argument(
+            'domain_name',
+            help='Name of the domain'
+        )
+
+        parser.add_argument(
+            'app_name',
+            help='Name of the app'
         )
 
         parser.add_argument(

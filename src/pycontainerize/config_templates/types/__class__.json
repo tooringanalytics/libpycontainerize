@@ -1,5 +1,12 @@
 [
     {
+        "name": "name",
+        "required": true,
+        "type": "string",
+        "default": ""
+    },
+
+    {
         "name": "extends",
         "required": true,
         "type": "list",
@@ -9,7 +16,7 @@
     {
         "name": "definition",
         "required": true,
-        "type": "list",
+        "type": "list(__type__)",
         "default": []
     },
 

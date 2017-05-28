@@ -3,34 +3,27 @@
         "name": "name",
         "required": "true",
         "type": "str",
-        "default": "<service-name>"
+        "default": "<app-name>"
     },
 
     {
-        "name": "class",
+        "name": "extends",
         "required": "true",
         "type": "list",
         "default": []
     },
 
     {
-        "name": "version",
-        "required": true,
-        "type": "str",
-        "default": "1.0"
+        "name": "definition",
+        "required": "true",
+        "type": "list(__type__)",
+        "default": []
     },
 
     {
-        "name": "mount_point",
-        "required": true,
-        "type": "str",
-        "default": "/"
-    },
-
-    {
-        "name": "container",
-        "required": true,
-        "type": "ContainerDict",
-        "default": {}
+        "name": "templates",
+        "required": "true",
+        "type": "list(__template__)",
+        "default": []
     }
 ]

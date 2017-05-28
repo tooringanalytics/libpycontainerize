@@ -9,19 +9,19 @@ import os
 import sys
 import six
 
-from constants import (
+from pycontainerize.constants import (
     DEFAULT_PROJECTS_DIR,
     DEFAULT_OUTPUT_DIR,
     DEFAULT_TEMPLATES_DIR,
 )
-from errors import (
+from pycontainerize.errors import (
     TemplatesDirNotFound,
     ProjectNotFound,
 )
-from renderer import (
+from pycontainerize.renderer import (
     Renderer,
 )
-from project import (
+from pycontainerize.project import (
     Project,
 )
 

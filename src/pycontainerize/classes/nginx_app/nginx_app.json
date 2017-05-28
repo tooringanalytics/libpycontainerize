@@ -1,0 +1,31 @@
+{
+    "name": "nginx_app",
+
+    "extends": [],
+
+    "definition": [
+        {
+            "name": "mount_point",
+            "required": true,
+            "type": "str",
+            "default": "/"
+        },
+
+        {
+            "name": "maintenance_mode",
+            "required": false,
+            "type": "boolean",
+            "default": false
+        },
+
+        {
+            "name": "maintenance_mode_html",
+            "required": false,
+            "type": "str",
+            "default": "maintenance.html"
+        }
+    ],
+
+    "templates": [
+    ]
+}

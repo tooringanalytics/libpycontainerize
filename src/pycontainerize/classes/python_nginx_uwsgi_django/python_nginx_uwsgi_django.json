@@ -1,7 +1,8 @@
 {
-    "name": "python_uwsgi_django",
+    "name": "python_nginx_uwsgi_django",
 
     "extends": [
+        "nginx_app",
         "python_supervisord",
         "git_mixin",
         "db_mixin",
