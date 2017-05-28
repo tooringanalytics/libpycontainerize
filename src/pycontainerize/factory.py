@@ -54,6 +54,10 @@ INBUILT_TYPES = set([
     '__template__'
 ])
 
+RE_INBUILT_CONTAINERS = [
+    re.compile(r'^list\((\w+)\)$'),
+]
+
 PROJECT_CONFIG_FILE = 'projectConfig.json'
 DOMAIN_CONFIG_FILE = 'domainConfig.json'
 APP_CONFIG_FILE = 'appConfig.json'
@@ -95,14 +99,25 @@ class ObjectConfig(object):
             raise TypeDefinitionError(config_template_path + ': ' + str(e))
         return config_template
 
+    def is_inbuilt_container(self, attr_type):
+        for reg in RE_INBUILT_CONTAINERS:
+            if reg.match(attr_type):
+                return True
+        return False
+
     def parse_config_template(self, config_template, obj=None):
         if obj is not None:
             self.obj = obj
         '''Parse the given configuration template'''
         for attrib in config_template:
             if attrib[ATTR_REQUIRED]:
-                if attrib[ATTR_TYPE] in INBUILT_TYPES:
-                    setattr(self.obj, attrib[ATTR_NAME], attrib[ATTR_DEFAULT])
+                if attrib[ATTR_TYPE] in INBUILT_TYPES or \
+                        self.is_inbuilt_container(attrib[ATTR_TYPE]):
+                    setattr(
+                        self.obj,
+                        attrib[ATTR_NAME],
+                        attrib[ATTR_DEFAULT]
+                    )
                 else:
                     type_name = attrib[ATTR_TYPE]
                     type_config = TypeConfig(type_name)

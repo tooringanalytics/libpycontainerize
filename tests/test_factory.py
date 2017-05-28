@@ -1,5 +1,5 @@
 import unittest
-from pycontainerize.factory import (
+from pycontainerize import (
     TypeConfig,
     ProjectConfig,
     DomainConfig,
@@ -83,7 +83,7 @@ class TestDomainConfig(FactoryTestCase):
         self.factory = factory
         self.project = project
 
-    def tearDown():
+    def tearDown(self):
         pass
 
     def test_domain(self):
@@ -101,3 +101,27 @@ class TestDomainConfig(FactoryTestCase):
         self.assertTrue('apps' in domain)
         self.assertTrue('services' in domain)
         self.assertTrue('test.domain.com' in set(self.project['domains']))
+
+
+class TestAppConfig(FactoryTestCase):
+
+    def setUp(self):
+        project_config = ProjectConfig()
+        project_config.initialize()
+        project_config.obj.name = 'test_project'
+        project_config.obj.version = '1.1.4'
+
+        factory = ObjectFactory()
+        project = factory.create_project(project_config)
+
+        self.factory = factory
+        self.project = project
+
+        domain_config = DomainConfig()
+        domain_config.initialize()
+        domain_config.obj.name = 'test.domain.com'
+        domain = self.factory.create_domain(self.project, domain_config)
+        self.domain = domain
+
+    def tearDown(self):
+        pass
