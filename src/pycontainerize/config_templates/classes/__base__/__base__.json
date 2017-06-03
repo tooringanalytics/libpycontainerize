@@ -1,21 +1,36 @@
 {
+    "name": "__base__",
+
     "extends": [],
 
     "definition": [
         {
-            "name": "start",
-            "required": true,
-            "type": "PythonSupervisordDict",
+            "name": "env",
+            "required": false,
+            "type": "dict",
             "default": {}
         },
 
         {
-            "name": "supervisord",
+            "name": "version",
             "required": true,
-            "type": "SupervisordConfigDict",
+            "type": "str",
+            "default": "1.0"
+        },
+
+        {
+            "name": "mount_point",
+            "required": true,
+            "type": "str",
+            "default": "/"
+        },
+
+        {
+            "name": "container",
+            "required": true,
+            "type": "ContainerDict",
             "default": {}
         }
-
     ],
 
     "templates": [
@@ -41,16 +56,6 @@
 
         {
             "src": "templates/__postcmd__.sh",
-            "perm": "770"
-        }
-
-        {
-            "src": "templates/supervisor-app.conf",
-            "perm": "770"
-        },
-
-        {
-            "src": "templates/supervisord.conf",
             "perm": "770"
         }
     ]

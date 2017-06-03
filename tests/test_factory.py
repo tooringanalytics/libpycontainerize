@@ -3,9 +3,13 @@ from pycontainerize import (
     TypeConfig,
     ProjectConfig,
     DomainConfig,
+    AppConfig,
     ObjectFactory,
 )
-from pycontainerize.errors import InvalidTypeError
+from pycontainerize.errors import (
+    InvalidTypeError,
+    TypeDefinitionNotFoundError,
+)
 
 
 class FactoryTestCase(unittest.TestCase):
@@ -22,7 +26,7 @@ class TestTypeConfig(FactoryTestCase):
         try:
             type_config = TypeConfig('randommm')
             type_config.initialize()
-        except InvalidTypeError:
+        except TypeDefinitionNotFoundError:
             self.assertTrue(True)
             pass
 
@@ -125,3 +129,18 @@ class TestAppConfig(FactoryTestCase):
 
     def tearDown(self):
         pass
+
+    def test_app(self):
+        app_config = AppConfig(
+            name='test_app',
+            extends=[
+                'python_nginx_uwsgi_django'
+            ]
+        )
+        app_config.initialize()
+        app = self.factory.create_app(self.domain, app_config)
+        import pdb; pdb.set_trace()
+        self.assertTrue('name' in app)
+        self.assertTrue('definition' in app)
+        self.assertTrue('extends' in app)
+        self.assertTrue('templates' in app)

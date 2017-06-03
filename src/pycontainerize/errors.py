@@ -46,3 +46,7 @@ class InvalidTypeError(Exception):
 
 class TypeDefinitionError(Exception):
     pass
+
+
+class TypeDefinitionNotFoundError(Exception):
+    pass

@@ -39,5 +39,5 @@
         "required": true,
         "type": "int",
         "default": 0
-    },
+    }
 ]

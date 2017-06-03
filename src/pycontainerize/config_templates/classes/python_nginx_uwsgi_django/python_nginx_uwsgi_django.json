@@ -27,11 +27,13 @@
 
     "templates": [
         {
-            "src": "templates/uwsgi.ini"
+            "src": "templates/uwsgi.ini",
+            "perm": "660"
         },
 
         {
-            "src": "templates/uwsgi_params"
+            "src": "templates/uwsgi_params",
+            "perm": "660"
         }
-    ],
+    ]
 }
