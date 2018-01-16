@@ -1,5 +1,5 @@
 import unittest
-from pycontainerize.cli import main
+from pycontainerize.cli import main as pycmain
 
 
 class TestPyContainerize(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestPyContainerize(unittest.TestCase):
 
     def test_help(self):
         try:
-            main(['--help'])
+            pycmain(['--help'])
         except SystemExit:
             self.assertTrue(True)
             return
@@ -20,7 +20,7 @@ class TestPyContainerize(unittest.TestCase):
 
     def test_subhelp(self):
         try:
-            main(['gen', '--help'])
+            pycmain(['gen', '--help'])
         except SystemExit:
             self.assertTrue(True)
             return
@@ -28,7 +28,7 @@ class TestPyContainerize(unittest.TestCase):
 
     def test_subsubhelp(self):
         try:
-            main(['gen', 'create_project', '--help'])
+            pycmain(['gen', 'create_project', '--help'])
         except SystemExit:
             self.assertTrue(True)
             return
