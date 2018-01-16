@@ -1,0 +1,15 @@
+{
+    "name": "mongodb",
+
+    "extends": [],
+
+    "definition": [
+    ],
+
+    "templates": [
+        {
+            "src": "templates/entrypoint.sh",
+            "perm": "770"
+        }
+    ]
+}

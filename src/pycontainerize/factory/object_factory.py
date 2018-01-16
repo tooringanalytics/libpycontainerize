@@ -1,4 +1,5 @@
 from constants import (
+    ATTR_NAME,
     PRJ_ATTR_DOMAINS,
     PRJ_ATTR_SERVICES,
     DOM_ATTR_APPS,
@@ -14,29 +15,29 @@ class ObjectFactory(object):
         return project_config.to_python()
 
     def create_domain(self, project, domain_config):
-        project[PRJ_ATTR_DOMAINS].append(domain_config.obj.name)
+        domain_config.add_to_project(project)
         return domain_config.to_python()
 
-    def remove_domain(self, project, domain_name):
-        pass
+    def remove_domain(self, project, domain_config):
+        domain_config.remove_from_project(project)
 
     def create_app(self, domain, app_config):
-        domain[DOM_ATTR_APPS].append(app_config.obj.name)
+        app_config.add_to_domain(domain)
         return app_config.to_python()
 
-    def remove_app(self, domain, app_name):
-        pass
+    def remove_app(self, domain, app_config):
+        app_config.remove_from_domain(domain)
 
     def create_project_service(self, project, service_config):
-        project[PRJ_ATTR_SERVICES].append(service_config.obj.name)
+        service_config.add_to_project(project)
         return service_config.to_python()
 
-    def remove_project_service(self, project, service_name):
-        pass
+    def remove_project_service(self, project, service_config):
+        service_config.remove_from_project(project)
 
     def create_domain_service(self, domain, service_config):
-        domain[DOM_ATTR_SERVICES].append(service_config.obj.name)
+        service_config.add_to_domain(domain)
         return service_config.to_python()
 
-    def remove_domain_service(self, domain, service_name):
-        pass
+    def remove_domain_service(self, domain, service_config):
+        service_config.remove_from_domain(domain)

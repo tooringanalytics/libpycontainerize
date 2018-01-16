@@ -7,9 +7,8 @@ import six
 from constants import (
     SERVICE_TEMPLATE_MAP,
     SERVICE_CONFIG,
+    THIS_ATTRIB,
     SERVICE_ATTRIB,
-    PROJECT_ATTRIB,
-    DOMAIN_ATTRIB,
 )
 from errors import (
     UnableToLoadService,
@@ -47,16 +46,14 @@ class Service(object):
         )
 
     def render(self,
-               project,
-               domain,
+               context,
                renderer,
                output_dir):
-        context = {}
+        context_copy = dict(context.items())
+        context = context_copy
         # Save a copy of this object's attribs in the context
         context[SERVICE_ATTRIB] = dict(self.service.items())
-        context[PROJECT_ATTRIB] = project
-        context[DOMAIN_ATTRIB] = domain
-
+        context[THIS_ATTRIB] = context[SERVICE_ATTRIB]
         for (src, dst) in SERVICE_TEMPLATE_MAP.items():
             try:
                 dst = renderer.render_template_from_string(

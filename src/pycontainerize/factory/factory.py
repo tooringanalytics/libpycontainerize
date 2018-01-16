@@ -3,6 +3,7 @@ import os
 import json
 import argparse
 import six
+import click
 from pycontainerize.project import (
     Project,
 )
@@ -26,138 +27,180 @@ from object_factory import (
 )
 from constants import (
     DOM_ATTR_APPS,
+    DOM_ATTR_SERVICES,
     APP_CONFIG_FILE,
     DOMAIN_CONFIG_FILE,
     PRJ_ATTR_DOMAINS,
+    PRJ_ATTR_SERVICES,
     DEFAULT_PROJECTS_DIR,
     PROJECT_CONFIG_FILE,
+    SERVICE_CONFIG_FILE,
 )
 
 
-class FactoryApp(object):
-    ''' Main application class '''
+@click.command()
+@click.option('-v', '--version', help='Project version')
+@click.option('-p', '--projects-dir', help='Project directory')
+@click.argument('project_name')
+def create_project(project_name,
+                   version='',
+                   projects_dir=DEFAULT_PROJECTS_DIR):
+    project_config = ProjectConfig()
+    project_config.initialize()
+    project_config.obj.name = project_name
 
-    def __init__(self):
-        self.parser = self.init_argparse()
+    if version:
+        project_config.obj.version = version
 
-    def exec_create_project(self, args, extra_args):
-        project_config = ProjectConfig()
-        project_config.initialize()
-        project_config.obj.name = args.project_name
+    factory = ObjectFactory()
 
-        if args.version:
-            project_config.obj.version = args.version
+    project = factory.create_project(project_config)
 
-        factory = ObjectFactory()
+    projects_dir = DEFAULT_PROJECTS_DIR \
+        if projects_dir is None else projects_dir
 
-        project = factory.create_project(project_config)
+    project_root = os.path.join(
+        projects_dir,
+        project_config.obj.name
+    )
 
+    if not os.path.exists(project_root):
+        os.makedirs(project_root)
+
+    output_file = os.path.join(
+        project_root,
+        PROJECT_CONFIG_FILE,
+    )
+
+    with open(output_file, 'w') as fp:
+        json.dump(
+            project,
+            fp,
+            sort_keys=True,
+            indent=4,
+            separators=(',', ': '),
+        )
+
+
+@click.command()
+@click.option('-p', '--projects-dir', help='Project directory')
+@click.argument('project_name')
+@click.argument('domain_name')
+def create_domain(project_name,
+                  domain_name,
+                  projects_dir=DEFAULT_PROJECTS_DIR):
+    projects_dir = DEFAULT_PROJECTS_DIR \
+        if projects_dir is None else projects_dir
+
+    project_root = os.path.join(
+        projects_dir,
+        project_name
+    )
+
+    project = Project.load(project_root).to_python()
+
+    domain_config = DomainConfig()
+    domain_config.initialize()
+    domain_config.obj.name = domain_name
+
+    factory = ObjectFactory()
+
+    domain = factory.create_domain(project, domain_config)
+
+    domain_root = os.path.join(
+        project_root,
+        PRJ_ATTR_DOMAINS,
+        domain_name,
+    )
+
+    if not os.path.exists(domain_root):
+        os.makedirs(domain_root)
+
+    output_file = os.path.join(
+        domain_root,
+        DOMAIN_CONFIG_FILE,
+    )
+
+    with open(output_file, 'w') as fp:
+        json.dump(
+            domain,
+            fp,
+            sort_keys=True,
+            indent=4,
+            separators=(',', ': '),
+        )
+
+    if not os.path.exists(project_root):
+        os.makedirs(project_root)
+
+    output_file = os.path.join(
+        project_root,
+        PROJECT_CONFIG_FILE,
+    )
+
+    with open(output_file, 'w') as fp:
+        json.dump(
+            project,
+            fp,
+            sort_keys=True,
+            indent=4,
+            separators=(',', ': '),
+        )
+
+
+@click.command()
+@click.option('-p', '--projects-dir', help='Project directory')
+@click.option('-e', '--extends', help='Class')
+@click.option('-d', '--definitions', help='Custom Type Definitions File')
+@click.option('-t', '--templates', help='Custom Template Defintions File')
+@click.argument('project_name')
+@click.argument('domain_name')
+@click.argument('app_name')
+def create_app(project_name,
+               domain_name,
+               app_name,
+               projects_dir=DEFAULT_PROJECTS_DIR,
+               extends=[],
+               definitions=None,
+               templates=None):
         projects_dir = DEFAULT_PROJECTS_DIR \
-            if args.projects_dir is None else args.projects_dir
+            if projects_dir is None else projects_dir
 
         project_root = os.path.join(
             projects_dir,
-            project_config.obj.name
-        )
-
-        if not os.path.exists(project_root):
-            os.makedirs(project_root)
-
-        output_file = os.path.join(
-            project_root,
-            PROJECT_CONFIG_FILE,
-        )
-
-        with open(output_file, 'w') as fp:
-            json.dump(
-                project,
-                fp,
-                sort_keys=True,
-                indent=4,
-                separators=(',', ': '),
-            )
-
-    def exec_create_domain(self, args, extra_args):
-        projects_dir = DEFAULT_PROJECTS_DIR \
-            if args.projects_dir is None else args.projects_dir
-
-        project_root = os.path.join(
-            projects_dir,
-            args.project_name
+            project_name
         )
 
         project = Project.load(project_root).to_python()
 
-        domain_config = DomainConfig()
-        domain_config.initialize()
-        domain_config.obj.name = args.domain_name
-
-        factory = ObjectFactory()
-
-        domain = factory.create_domain(project, domain_config)
-
         domain_root = os.path.join(
             project_root,
             PRJ_ATTR_DOMAINS,
-            args.domain_name,
+            domain_name,
         )
 
-        if not os.path.exists(domain_root):
-            os.makedirs(domain_root)
+        domain = Domain.load(domain_root).to_python()
 
-        output_file = os.path.join(
-            domain_root,
-            DOMAIN_CONFIG_FILE,
+        extends = extends.split(',')
+        if definitions is not None:
+            with open(definitions, 'r') as fp:
+                definitions = json.load(fp)
+        else:
+            definitions = []
+        if templates is not None:
+            with open(templates, 'r') as fp:
+                templates = json.load(fp)
+        else:
+            templates = []
+
+        app_config = AppConfig(
+            name=app_name,
+            extends=extends,
+            definitions=definitions,
+            templates=templates,
         )
-
-        with open(output_file, 'w') as fp:
-            json.dump(
-                domain,
-                fp,
-                sort_keys=True,
-                indent=4,
-                separators=(',', ': '),
-            )
-
-        if not os.path.exists(project_root):
-            os.makedirs(project_root)
-
-        output_file = os.path.join(
-            project_root,
-            PROJECT_CONFIG_FILE,
-        )
-
-        with open(output_file, 'w') as fp:
-            json.dump(
-                project,
-                fp,
-                sort_keys=True,
-                indent=4,
-                separators=(',', ': '),
-            )
-
-    def exec_create_app(self, args, extra_args):
-        projects_dir = DEFAULT_PROJECTS_DIR \
-            if args.projects_dir is None else args.projects_dir
-
-        project_root = os.path.join(
-            projects_dir,
-            args.project_name
-        )
-
-        project = Project.load(project_root).to_python()
-
-        domain_root = os.path.join(
-            project_root,
-            PRJ_ATTR_DOMAINS,
-            args.domain_name,
-        )
-
-        domain = Domain.load(domain_root)
-
-        app_config = AppConfig()
         app_config.initialize()
-        app_config.obj.name = args.app_name
+        app_config.obj.name = app_name
 
         factory = ObjectFactory()
 
@@ -166,17 +209,20 @@ class FactoryApp(object):
         app_root = os.path.join(
             domain_root,
             DOM_ATTR_APPS,
-            args.app_name,
+            app_name,
         )
 
         if not os.path.exists(app_root):
             os.makedirs(app_root)
+
+        app_config.copy_templates(app_root)
 
         output_file = os.path.join(
             app_root,
             APP_CONFIG_FILE,
         )
 
+        import pdb; pdb.set_trace()
         with open(output_file, 'w') as fp:
             json.dump(
                 app,
@@ -203,195 +249,208 @@ class FactoryApp(object):
                 separators=(',', ': '),
             )
 
-    def execute(self, parser, args):
-        extra_args = self.parse_extra(parser, args)
-        if args.subparser_name == 'create_project':
-            self.exec_create_project(args, extra_args)
-        elif args.subparser_name == 'create_domain':
-            self.exec_create_domain(args, extra_args)
 
-    def parse_extra(self, parser, namespace):
-        '''This function takes the 'extra' attribute from global
-        namespace and re-parses it to create separate namespaces
-        for all other chained commands.
-        '''
-        namespaces = []
-        extra = namespace.extra
-        while extra:
-            n = parser.parse_args(extra)
-            extra = n.extra
-            namespaces.append(n)
-        return namespaces
+@click.command()
+@click.option('-p', '--projects-dir', help='Project directory')
+@click.option('-e', '--extends', help='Class')
+@click.option('-d', '--definitions', help='Custom Type Definitions File')
+@click.option('-t', '--templates', help='Custom Template Defintions File')
+@click.argument('project_name')
+@click.argument('domain_name')
+@click.argument('service_name')
+def create_domain_service(project_name,
+                          domain_name,
+                          service_name,
+                          projects_dir=DEFAULT_PROJECTS_DIR,
+                          extends=[],
+                          definitions=None,
+                          templates=None):
+        projects_dir = DEFAULT_PROJECTS_DIR \
+            if projects_dir is None else projects_dir
 
-    def init_argparse(self):
-        argparser = argparse.ArgumentParser()
-
-        subparsers = argparser.add_subparsers(
-            help='sub-command help',
-            dest='subparser_name'
+        project_root = os.path.join(
+            projects_dir,
+            project_name
         )
 
-        # Add nargs="*" for zero or more other commands
-        argparser.add_argument(
-            'extra',
-            nargs='*',
-            help='Other commands'
+        project = Project.load(project_root).to_python()
+
+        domain_root = os.path.join(
+            project_root,
+            PRJ_ATTR_DOMAINS,
+            domain_name,
         )
 
-        create_project_parser = subparsers.add_parser(
-            'create_project',
-            help='Create a new project'
+        domain = Domain.load(domain_root).to_python()
+
+        extends = extends.split(',')
+        if definitions is not None:
+            with open(definitions, 'r') as fp:
+                definitions = json.load(fp)
+        else:
+            definitions = []
+        if templates is not None:
+            with open(templates, 'r') as fp:
+                templates = json.load(fp)
+        else:
+            templates = []
+
+        service_config = ServiceConfig(
+            name=service_name,
+            extends=extends,
+            definitions=definitions,
+            templates=templates,
+        )
+        service_config.initialize()
+        service_config.obj.name = service_name
+
+        factory = ObjectFactory()
+
+        service = factory.create_domain_service(domain, service_config)
+
+        service_root = os.path.join(
+            domain_root,
+            DOM_ATTR_SERVICES,
+            service_name,
         )
 
-        # Setup options for parser
-        self.init_create_project_parser(create_project_parser)
+        if not os.path.exists(service_root):
+            os.makedirs(service_root)
 
-        create_project_service_parser = subparsers.add_parser(
-            'create_project_service',
-            help='Create a new service for the given project'
+        service_config.copy_templates(service_root)
+
+        output_file = os.path.join(
+            service_root,
+            SERVICE_CONFIG_FILE,
         )
 
-        # Setup options for parser
-        self.init_create_project_service_parser(create_project_service_parser)
+        import pdb; pdb.set_trace()
+        with open(output_file, 'w') as fp:
+            json.dump(
+                service,
+                fp,
+                sort_keys=True,
+                indent=4,
+                separators=(',', ': '),
+            )
 
-        create_domain_parser = subparsers.add_parser(
-            'create_domain',
-            help='Create a new domain inside a project'
+        if not os.path.exists(domain_root):
+            os.makedirs(domain_root)
+
+        output_file = os.path.join(
+            domain_root,
+            DOMAIN_CONFIG_FILE,
         )
 
-        # Setup options for parser
-        self.init_create_domain_parser(create_domain_parser)
+        with open(output_file, 'w') as fp:
+            json.dump(
+                domain,
+                fp,
+                sort_keys=True,
+                indent=4,
+                separators=(',', ': '),
+            )
 
-        create_domain_service_parser = subparsers.add_parser(
-            'create_domain_service',
-            help='Create a new service inside a domain'
+
+@click.command()
+@click.option('-p', '--projects-dir', help='Project directory')
+@click.option('-e', '--extends', help='Class')
+@click.option('-d', '--definitions', help='Custom Type Definitions File')
+@click.option('-t', '--templates', help='Custom Template Defintions File')
+@click.argument('project_name')
+@click.argument('service_name')
+def create_project_service(project_name,
+                           service_name,
+                           projects_dir=DEFAULT_PROJECTS_DIR,
+                           extends=[],
+                           definitions=None,
+                           templates=None):
+        projects_dir = DEFAULT_PROJECTS_DIR \
+            if projects_dir is None else projects_dir
+
+        project_root = os.path.join(
+            projects_dir,
+            project_name
         )
 
-        # Setup options for parser
-        self.init_create_domain_service_parser(create_domain_service_parser)
+        project = Project.load(project_root).to_python()
 
-        return argparser
-
-    def init_create_project_parser(self, parser):
-        '''Setup options for create_project'''
-        parser.add_argument(
-            'project_name',
-            help='Name of the project'
+        service_root = os.path.join(
+            project_root,
+            PRJ_ATTR_SERVICES,
+            service_name,
         )
 
-        parser.add_argument(
-            '-v',
-            '--version',
-            help='project version',
+        extends = extends.split(',')
+
+        if definitions is not None:
+            with open(definitions, 'r') as fp:
+                definitions = json.load(fp)
+        else:
+            definitions = []
+
+        if templates is not None:
+            with open(templates, 'r') as fp:
+                templates = json.load(fp)
+        else:
+            templates = []
+
+        service_config = ServiceConfig(
+            name=service_name,
+            extends=extends,
+            definitions=definitions,
+            templates=templates,
+        )
+        service_config.initialize()
+        service_config.obj.name = service_name
+
+        factory = ObjectFactory()
+
+        service = factory.create_project_service(project, service_config)
+
+        if not os.path.exists(service_root):
+            os.makedirs(service_root)
+
+        service_config.copy_templates(service_root)
+
+        output_file = os.path.join(
+            service_root,
+            SERVICE_CONFIG_FILE,
         )
 
-        parser.add_argument(
-            '-p',
-            '--projects-dir',
-            help='Output directory (default: %s)' % DEFAULT_PROJECTS_DIR,
+        with open(output_file, 'w') as fp:
+            json.dump(
+                service,
+                fp,
+                sort_keys=True,
+                indent=4,
+                separators=(',', ': '),
+            )
+
+        if not os.path.exists(project_root):
+            os.makedirs(project_root)
+
+        output_file = os.path.join(
+            project_root,
+            PROJECT_CONFIG_FILE,
         )
 
-        return parser
+        with open(output_file, 'w') as fp:
+            json.dump(
+                project,
+                fp,
+                sort_keys=True,
+                indent=4,
+                separators=(',', ': '),
+            )
 
-    def init_create_project_service_parser(self, parser):
-        '''Setup options for create_project_service'''
-        parser.add_argument(
-            'project_name',
-            help='Name of the project'
-        )
 
-        parser.add_argument(
-            'service_name',
-            help='Name of the service'
-        )
-
-        parser.add_argument(
-            '-p',
-            '--projects-dir',
-            help='Output directory (default: %s)' % DEFAULT_PROJECTS_DIR,
-        )
-
-        return parser
-
-    def init_create_domain_parser(self, parser):
-        '''Setup options for create_domain'''
-        parser.add_argument(
-            'project_name',
-            help='Name of the project'
-        )
-
-        parser.add_argument(
-            'domain_name',
-            help='Name of the domain'
-        )
-
-        parser.add_argument(
-            '-p',
-            '--projects-dir',
-            help='Output directory (default: %s)' % DEFAULT_PROJECTS_DIR,
-        )
-
-        return parser
-
-    def init_create_domain_service_parser(self, parser):
-        '''Setup options for create_domain_service'''
-        parser.add_argument(
-            'project_name',
-            help='Name of the project'
-        )
-
-        parser.add_argument(
-            'domain_name',
-            help='Name of the domain'
-        )
-
-        parser.add_argument(
-            'service_name',
-            help='Name of the service'
-        )
-
-        parser.add_argument(
-            '-p',
-            '--projects-dir',
-            help='Output directory (default: %s)' % DEFAULT_PROJECTS_DIR,
-        )
-
-        return parser
-
-    def init_create_app_parser(self, parser):
-        '''Setup options for create_app'''
-        parser.add_argument(
-            'project_name',
-            help='Name of the project'
-        )
-
-        parser.add_argument(
-            'domain_name',
-            help='Name of the domain'
-        )
-
-        parser.add_argument(
-            'app_name',
-            help='Name of the app'
-        )
-
-        parser.add_argument(
-            '-p',
-            '--projects-dir',
-            help='Output directory (default: %s)' % DEFAULT_PROJECTS_DIR,
-        )
-
-        return parser
-
-    def main(self):
-        args = self.parser.parse_args()
-        try:
-            self.execute(self.parser, args)
-        except Exception as err:
-            print(err)
-            six.reraise(type(err), err, sys.exc_info()[2])
+@click.group()
+def gen():
+    pass
 
 
 if __name__ == '__main__':
-    app = FactoryApp()
-    app.main()
+    gen.add_command(create_project)
+    gen.add_command(create_domain)
+    gen.add_command(create_app)

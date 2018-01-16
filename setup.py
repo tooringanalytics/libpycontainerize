@@ -78,6 +78,7 @@ setup(
     install_requires=[
         'boto3==1.4.4',
         'botocore==1.5.46',
+        'click==6.7',
         'docutils==0.13.1',
         'ecdsa==0.13',
         'Fabric==1.12.0',

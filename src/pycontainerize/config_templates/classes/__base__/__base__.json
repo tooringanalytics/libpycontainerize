@@ -5,10 +5,10 @@
 
     "definition": [
         {
-            "name": "env",
-            "required": false,
-            "type": "dict",
-            "default": {}
+            "name": "name",
+            "required": true,
+            "type": "str",
+            "default": "<name>"
         },
 
         {
@@ -30,6 +30,20 @@
             "required": true,
             "type": "ContainerDict",
             "default": {}
+        },
+
+        {
+            "name": "env",
+            "required": true,
+            "type": "dict",
+            "default": {}
+        },
+
+        {
+            "name": "networks",
+            "required": true,
+            "type": "list",
+            "default": []
         }
     ],
 

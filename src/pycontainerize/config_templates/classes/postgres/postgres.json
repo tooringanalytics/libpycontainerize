@@ -1,0 +1,49 @@
+{
+    "name": "postgres",
+
+    "extends": [],
+
+    "definition": [
+        {
+            "name": "env",
+            "required": true,
+            "type": "dict",
+            "default": {
+                "MONGODB_USER": "{{ project.users.mongodb.user }}",
+                "MONGODB_UID": "{{ project.users.mongodb.uid }}",
+                "MONGODB_GROUP": "{{ project.users.mongodb.group }}",
+                "MONGODB_GID": "{{ project.users.mongodb.gid }}"
+            }
+        },
+        {
+            "name": "volumes",
+            "required": true,
+            "type": "list(VolumeDict)",
+            "default": [
+                {
+                    "host": "{{ parent.deploy.server.config_dir }}/services/{{ parent.services.mongodb.alias }}/entrypoint.sh",
+                    "container": "/entrypoint.sh"
+                },
+                {
+                    "host": "{{ parent.deploy.server.db_dir }}/{{ parent.services.mongodb.alias }}",
+                    "container": "/data/db"
+                }
+            ]
+        }
+    ],
+
+    "templates": [
+        {
+            "src": "templates/initdb/create_database.sql",
+            "perm": "660",
+            "ctx": "app",
+            "dst": "initdb/{{ app.name }}_02_create_database.sql"
+        },
+        {
+            "src": "templates/initdb/create_user.sql",
+            "perm": "660",
+            "ctx": "app",
+            "dst": "initdb/{{ app.name }}_01_create_user.sql"
+        }
+    ]
+}

@@ -11,5 +11,20 @@
         "required": true,
         "type": "string",
         "default": ""
+    },
+
+    {
+        "name": "ctx",
+        "required": false,
+        "type": "string",
+        "default": ""
+    },
+
+    {
+        "name": "dst",
+        "required": false,
+        "type": "string",
+        "default": ""
     }
+
 ]

@@ -23,8 +23,11 @@ NGINX_ATTRIB = 'nginx'
 NAME_ATTRIB = 'name'
 
 # Context attributes
+PARENT_ATTRIB = 'parent'
 APP_ATTRIB = 'app'
+THIS_ATTRIB = 'this'
 SERVICE_ATTRIB = 'service'
+SERVICES_ATTRIB = 'services'
 PROJECT_ATTRIB = 'project'
 DOMAIN_ATTRIB = 'domain'
 

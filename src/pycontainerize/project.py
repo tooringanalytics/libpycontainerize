@@ -11,6 +11,8 @@ from constants import (
     CONTEXT_ATTRIB,
     PROJECT_ATTRIB,
     DOMAINS_ATTRIB,
+    PARENT_ATTRIB,
+    SERVICES_ATTRIB,
     NETWORKS_ATTRIB,
     DOMAINS_DIR,
     PROJECT_CONFIG,
@@ -104,9 +106,11 @@ class Project(object):
                output_dir):
         ''' Render the templates for this project '''
         # Set up the rendering context
+        serialized_project = self.to_dict()
         context = {
             CONTEXT_ATTRIB: PROJECT_ATTRIB,
-            PROJECT_ATTRIB: self.to_dict()
+            PARENT_ATTRIB: serialized_project,
+            PROJECT_ATTRIB: serialized_project
         }
         # Render each template file in PROJECT_TEMPLATE_MAP
         for (src, dst) in PROJECT_TEMPLATE_MAP.items():
@@ -128,6 +132,9 @@ class Project(object):
                                          output_path)
             except Exception as err:
                 raise UnableToRenderTemplate(src + ': ' + str(err))
+        # Render the templates for all services within this project
+        for service in self.project[SERVICES_ATTRIB]:
+            service.render(context, renderer, output_dir)
         # Render the templates for all Domains within this project
         for domain in self.project[DOMAINS_ATTRIB]:
-            domain.render(self.to_dict(), renderer, output_dir)
+            domain.render(serialized_project, renderer, output_dir)

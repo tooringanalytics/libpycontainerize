@@ -1,13 +1,13 @@
 [
     {
-        "name": "dir",
+        "name": "host",
         "required": true,
         "type": "str",
         "default": ""
     },
 
     {
-        "name": "mnt",
+        "name": "container",
         "required": true,
         "type": "str",
         "default": ""

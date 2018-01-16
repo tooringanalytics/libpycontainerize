@@ -46,12 +46,12 @@
 
         {
             "src": "templates/supervisor-app.conf",
-            "perm": "770"
+            "perm": "660"
         },
 
         {
             "src": "templates/supervisord.conf",
-            "perm": "770"
+            "perm": "660"
         }
     ]
 

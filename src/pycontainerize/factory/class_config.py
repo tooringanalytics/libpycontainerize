@@ -2,6 +2,9 @@ import os
 
 
 from constants import (
+    OBJ_ATTR_PARENTS,
+    OBJ_ATTR_CONFIG_TEMPLATE,
+    OBJ_ATTR_NAME,
     BASE_CLASS_NAME,
     CLASSES_DIR,
     CONFIG_TEMPLATES_DIR,
@@ -75,7 +78,7 @@ class ClassConfig(ObjectConfig):
         if obj is not None:
             self.obj = obj
         if ATTR_NAME in config_template:
-            setattr(self.obj, ATTR_NAME, config_template[ATTR_NAME])
+            setattr(self.obj, OBJ_ATTR_NAME, config_template[ATTR_NAME])
         if ATTR_EXTENDS in config_template:
             base_classes = config_template[ATTR_EXTENDS]
         else:
@@ -87,7 +90,9 @@ class ClassConfig(ObjectConfig):
         # Every class config object annotates the self.obj object
         # with attributes it has defined. Attributes are overriden
         # in the order in which classes are specified.
-        if self.class_name != BASE_CLASS_NAME:
+        parents = getattr(self.obj, OBJ_ATTR_PARENTS)
+        if self.class_name != BASE_CLASS_NAME and \
+                BASE_CLASS_NAME not in parents:
             class_search_path = os.path.join(
                 CLASSES_DIR,
                 BASE_CLASS_NAME,
@@ -96,8 +101,13 @@ class ClassConfig(ObjectConfig):
                 BASE_CLASS_NAME,
                 [class_search_path]
             )
-            subclass_definitions = base_class_config.initialize(self.obj)
+            base_class_config.initialize(self.obj)
+            parents = getattr(self.obj, OBJ_ATTR_PARENTS)
+            parents = parents | set([BASE_CLASS_NAME])
+            setattr(self.obj, OBJ_ATTR_PARENTS, parents)
         for base_class in base_classes:
+            if base_class in parents:
+                continue
             class_search_path = os.path.join(
                 CLASSES_DIR,
                 base_class,
@@ -107,8 +117,17 @@ class ClassConfig(ObjectConfig):
                 [class_search_path]
             )
             base_class_config.initialize(self.obj)
+            parents = getattr(self.obj, OBJ_ATTR_PARENTS)
+            parents = parents | set([base_class])
+            setattr(self.obj, OBJ_ATTR_PARENTS, parents)
         self.add_templates(templates)
         super(ClassConfig, self).parse_config_template(type_definitions)
+        config_template = getattr(self.obj, OBJ_ATTR_CONFIG_TEMPLATE)
+        setattr(
+            self.obj,
+            OBJ_ATTR_CONFIG_TEMPLATE,
+            config_template + type_definitions,
+        )
 
     def to_python(self):
         '''Traverse the object tree and generate a python representation'''

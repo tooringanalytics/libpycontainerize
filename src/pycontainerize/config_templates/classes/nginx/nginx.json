@@ -1,0 +1,29 @@
+{
+    "name": "nginx",
+
+    "extends": [],
+
+    "definition": [
+    ],
+
+    "templates": [
+        {
+            "src": "templates/nginx.conf",
+            "perm": "660"
+        },
+        {
+            "src": "templates/supervisor-app.conf",
+            "perm": "600"
+        },
+        {
+            "src": "templates/nginx-app.conf",
+            "perm": "600",
+            "ctx": "domain",
+            "dst": "sites-enabled/{{ domain.name }}.conf"
+        },
+        {
+            "src": "templates/uwsgi/uwsgi_params",
+            "perm": "600"
+        }
+    ]
+}

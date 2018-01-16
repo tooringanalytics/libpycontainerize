@@ -21,7 +21,10 @@ from object_factory import (
     ObjectFactory,
 )
 from factory import (
-    FactoryApp,
+    create_project,
+    create_domain,
+    create_app,
+    gen,
 )
 
 
@@ -34,5 +37,8 @@ __all__ = (
     'AppConfig',
     'ServiceConfig',
     'ObjectFactory',
-    'FactoryApp',
+    'create_project',
+    'create_domain',
+    'create_app',
+    'gen',
 )

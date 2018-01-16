@@ -28,6 +28,7 @@ from pycontainerize.factory import (
     ProjectConfig,
     DomainConfig,
     AppConfig,
+    ServiceConfig,
     ObjectFactory,
 )
 
@@ -44,6 +45,7 @@ __all__ = [
     'ClassConfig',
     'ProjectConfig',
     'DomainConfig',
+    'ServiceConfig',
     'AppConfig',
     'ObjectFactory',
     'DEFAULT_PROJECTS_DIR',
