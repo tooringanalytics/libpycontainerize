@@ -31,8 +31,8 @@ version = release = u'0.1.0'
 pygments_style = 'trac'
 templates_path = ['.']
 extlinks = {
-    'issue': ('https://github.com/tooringtest/libpycontainerize/issues/%s', '#'),
-    'pr': ('https://github.com/tooringtest/libpycontainerize/pull/%s', 'PR #'),
+    'issue': ('https://github.com/tooringanalytics/libpycontainerize/issues/%s', '#'),
+    'pr': ('https://github.com/tooringanalytics/libpycontainerize/pull/%s', 'PR #'),
 }
 # on_rtd is whether we are on readthedocs.org
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'

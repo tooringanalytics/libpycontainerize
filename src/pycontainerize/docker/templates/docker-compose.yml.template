@@ -1,0 +1,148 @@
+version: '2'
+services:
+  {% for serviceName in project.serviceOrder %}
+  {% with service=project.services[serviceName] %}
+  {{ serviceName }}:
+    image: {{ service.image }}
+    {% if service.command is defined %}
+    command: service.command
+    {% endif %}
+    {% if service.environment is defined %}
+    environment:
+      {% for key, value in service.environment.iteritems() %}
+      - {{ key }}={{ value }}
+      {% endfor %}
+    {% endif %}
+    {% if service.volumes is defined %}
+    volumes:
+      {% for volume in service.volumes %}
+      - {{ volume.host }}:{{ volume.container }}
+      {% endfor %}
+    {% endif %}
+    {% if service.expose is defined %}
+    expose:
+      {% for port in service.expose %}
+      - "{{ port }}"
+      {% endfor %}
+    {% endif %}
+    {% if service.ports is defined %}
+    ports:
+      {% for port in service.ports %}
+      - "{{ port.host }}:{{ port.container }}"
+      {% endfor %}
+    {% endif %}
+    {% if service.networks is defined %}
+    networks:
+    {% for network in service.networks %}
+      - {{ network }}
+    {% endfor %}
+    {% endif %}
+    {% if service.links is defined %}
+    links:
+      {% for link in service.links %}
+      - {{ link.service }}:{{ link.alias }}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  {% endfor %}
+  {% for domain in project.domains %}
+  {% for service in domain.services %}
+  {{ service.name }}:
+    image: {{ service.container.image }}
+    command: start
+    volumes:
+      - {{ project.deploy.server.config_dir }}/domains/{{ domain.name }}/services/{{ service.name }}:{{ project.deploy.docker.config_dir }}
+      - {{ project.deploy.server.config_dir }}/domains/{{ domain.name }}/certs:{{ project.deploy.docker.certs_dir }}
+      - {{ project.deploy.server.code_dir }}/{{ domain.name }}/{{ service.name }}:{{ project.deploy.docker.code_dir }}
+      - {{ project.deploy.server.data_dir }}/{{ domain.name }}/{{ service.name }}:{{ project.deploy.docker.data_dir }}
+      - {{ project.deploy.server.logs_dir }}/{{ domain.name }}/{{ service.name }}:{{ project.deploy.docker.logs_dir }}
+    {% if service.ports is defined %}
+    expose:
+      {% for port in service.ports %}
+      - "{{ port }}"
+      {% endfor %}
+    {% endif %}
+    {% if service.networks is defined %}
+    networks:
+    {% for network in service.networks %}
+      - {{ network }}
+    {% endfor %}
+    {% endif %}
+    {% if service.container.links is defined %}
+    links:
+      {% for link in service.container.links %}
+      - {{ link.service }}:{{ link.alias }}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+  {% for app in domain.apps %}
+  {{ app.name }}:
+    image: {{ app.container.image }}
+    command: start
+    volumes:
+      - {{ project.deploy.server.config_dir }}/domains/{{ domain.name }}/apps/{{ app.name }}:{{ project.deploy.docker.config_dir }}
+      - {{ project.deploy.server.config_dir }}/domains/{{ domain.name }}/certs:{{ project.deploy.docker.certs_dir }}
+      - {{ project.deploy.server.code_dir }}/{{ domain.name }}/{{ app.name }}:{{ project.deploy.docker.code_dir }}
+      - {{ project.deploy.server.data_dir }}/{{ domain.name }}/{{ app.name }}:{{ project.deploy.docker.data_dir }}
+      - {{ project.deploy.server.logs_dir }}/{{ domain.name }}/{{ app.name }}:{{ project.deploy.docker.logs_dir }}
+      {% if app.container.volumes is defined %}
+      {% for volume in app.container.volumes %}
+      - {{ volume.dir }}:{{ volume.mnt }}
+      {% endfor %}
+      {% endif %}
+    {% if app.uwsgi.port is defined %}
+    expose:
+      - "{{ app.uwsgi.port }}"
+    {% endif %}
+    {% if app.container.links is defined %}
+    links:
+      {% for link in app.container.links %}
+      - {{ link.service }}:{{ link.alias }}
+      {% endfor %}
+    {% endif %}
+    {% if app.networks is defined %}
+    networks:
+    {% for network in app.networks %}
+      - {{ network }}
+    {% endfor %}
+    {% endif %}
+  {% endfor %}
+  {% endfor %}
+  nginx:
+    image: kyma/docker-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    {% if project.services.nginx.networks is defined %}
+    networks:
+    {% for network in project.services.nginx.networks %}
+      - {{ network }}
+    {% endfor %}
+    {% endif %}
+    links:
+    {% for domain in project.domains %}
+    {% for app in domain.apps %}
+      - {{ app.name }}:{{ app.name }}
+    {% endfor %}
+    {% endfor %}
+    volumes:
+      - {{ project.deploy.server.services_config_dir }}/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - {{ project.deploy.server.services_config_dir }}/nginx/sites-enabled:/etc/nginx/sites-enabled
+      - {{ project.deploy.server.services_config_dir }}/nginx/uwsgi:/etc/nginx/uwsgi
+      - {{ project.deploy.server.logs_dir }}/nginx-servers:{{ project.deploy.docker.logs_dir }}
+      - {{ project.deploy.server.logs_dir }}/nginx:/var/log/nginx
+      - {{ project.deploy.server.certs_dir }}:{{ project.deploy.docker.certs_dir }}
+      - {{ project.deploy.server.code_dir }}:{{ project.deploy.docker.code_dir }}
+{% if project.networks is defined %}
+networks:
+  {% for network in project.networks %}
+    {{ network.name }}:
+      driver: {{ network.driver }}
+      {% if network.driver_opts %}
+      driver_opts:
+        {% for opt in network.driver_opts %}
+        {{ opt.key }}: {{ opt.value }}
+        {% endfor %}
+      {% endif %}
+  {% endfor %}
+{% endif %}
