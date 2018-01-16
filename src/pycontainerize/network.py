@@ -1,13 +1,5 @@
 from json import JSONEncoder
 import json
-import os
-from constants import (
-    NETWORKS_CONFIG,
-)
-from errors import (
-    UnableToLoadApp,
-    UnableToLoadNetworksConfig,
-)
 
 
 class NetworkEncoder(JSONEncoder):

@@ -66,8 +66,8 @@ class ClassConfig(ObjectConfig):
             )
             try:
                 template_perm = template[ATTR_PERM]
-            except:
-                import pdb; pdb.set_trace()
+            except Exception:
+                raise
             templates_list.append({
                 ATTR_SRC: template_file,
                 ATTR_PERM: template_perm,
@@ -82,7 +82,7 @@ class ClassConfig(ObjectConfig):
         if ATTR_EXTENDS in config_template:
             base_classes = config_template[ATTR_EXTENDS]
         else:
-            import pdb; pdb.set_trace()
+            raise Exception('config_template does not have ATTR_EXTENDS')
         if ATTR_DEFINITION in config_template:
             type_definitions = config_template[ATTR_DEFINITION]
         if ATTR_TEMPLATES in config_template:
@@ -132,7 +132,6 @@ class ClassConfig(ObjectConfig):
     def to_python(self):
         '''Traverse the object tree and generate a python representation'''
         json_rep = {}
-        import pdb; pdb.set_trace()
         for attrib in self.config_template[ATTR_DEFINITION]:
             if hasattr(self.obj, attrib[ATTR_NAME]):
                 if attrib[ATTR_TYPE] in INBUILT_TYPES:

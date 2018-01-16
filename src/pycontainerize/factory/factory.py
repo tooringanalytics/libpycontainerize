@@ -1,8 +1,5 @@
-import sys
 import os
 import json
-import argparse
-import six
 import click
 from pycontainerize.project import (
     Project,
@@ -171,7 +168,7 @@ def create_app(project_name,
             project_name
         )
 
-        project = Project.load(project_root).to_python()
+        # project = Project.load(project_root).to_python()
 
         domain_root = os.path.join(
             project_root,
@@ -222,7 +219,6 @@ def create_app(project_name,
             APP_CONFIG_FILE,
         )
 
-        import pdb; pdb.set_trace()
         with open(output_file, 'w') as fp:
             json.dump(
                 app,
@@ -273,7 +269,7 @@ def create_domain_service(project_name,
             project_name
         )
 
-        project = Project.load(project_root).to_python()
+        # project = Project.load(project_root).to_python()
 
         domain_root = os.path.join(
             project_root,
@@ -324,7 +320,6 @@ def create_domain_service(project_name,
             SERVICE_CONFIG_FILE,
         )
 
-        import pdb; pdb.set_trace()
         with open(output_file, 'w') as fp:
             json.dump(
                 service,

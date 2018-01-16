@@ -79,7 +79,6 @@ class CLIParser(object):
             handler = self.subcommand_handlers[options.subparser_name]
             handler.execute_command(options, extra_options)
         else:
-            import pdb; pdb.set_trace()
             print(dir(options))
 
     def execute_command(self, options, extra_options):

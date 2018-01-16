@@ -1,10 +1,3 @@
-from constants import (
-    ATTR_NAME,
-    PRJ_ATTR_DOMAINS,
-    PRJ_ATTR_SERVICES,
-    DOM_ATTR_APPS,
-    DOM_ATTR_SERVICES,
-)
 
 
 class ObjectFactory(object):
