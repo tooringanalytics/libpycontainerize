@@ -18,6 +18,10 @@ from cli_parser import (
     CLIParser,
 )
 import click
+from builder import (
+    build_project,
+    builder,
+)
 from factory import (
     create_project,
     create_domain,
@@ -101,9 +105,11 @@ def main(args=None):
     # app.main(args=args)
     # test_grp.add_command(test_cmd)
     # cli.add_command(test_grp)
+    builder.add_command(build_project)
     gen.add_command(create_project)
     gen.add_command(create_domain)
     gen.add_command(create_app)
+    cli.add_command(builder)
     cli.add_command(gen)
     cli()
     # args = parser.parse_args(args=args)
