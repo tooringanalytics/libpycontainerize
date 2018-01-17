@@ -9,8 +9,8 @@ from pycontainerize.constants import CONTEXT_ATTRIB
 from pycontainerize.constants import DOMAIN_ATTRIB
 from pycontainerize.constants import PROJECT_ATTRIB
 from pycontainerize.constants import SERVICE_ATTRIB
-from errors import UnableToLoadApp
-from errors import UnableToRenderTemplate
+from pycontainerize.errors import UnableToLoadApp
+from pycontainerize.errors import UnableToRenderTemplate
 
 
 class AppEncoder(JSONEncoder):
