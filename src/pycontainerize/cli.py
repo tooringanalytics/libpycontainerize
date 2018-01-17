@@ -15,7 +15,6 @@ Why does this file exist, and why not put this in __main__?
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
 import click
-
 from builder import build_project
 from builder import builder
 from cli_parser import CLIParser

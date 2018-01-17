@@ -16,7 +16,6 @@ from pycontainerize.network import Networks
 from pycontainerize.project import Project
 from pycontainerize.service import Service
 
-
 __all__ = [
     'Containerizer',
     'Project',

@@ -11,7 +11,6 @@ from object_factory import ObjectFactory
 from project_config import ProjectConfig
 from service_config import ServiceConfig
 
-
 __all__ = (
     'ObjectConfig',
     'TypeConfig',

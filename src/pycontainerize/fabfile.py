@@ -13,7 +13,6 @@ from fabric.operations import settings
 import pycontainerize
 from pycontainerize import Containerizer
 
-
 LOCAL_KEYFILE = os.path.join(
     os.environ['HOME'],
     'tooringanalytics_aws_ec2_debian_instance.pem'

@@ -18,6 +18,7 @@ from pycontainerize.errors import TemplatesDirNotFound
 from pycontainerize.project import Project
 from pycontainerize.renderer import Renderer
 
+
 '''
 Templates are rendered in 4 types of contexts:
 1. Project context
@@ -77,6 +78,7 @@ Output Directory Layout:
 
 class Containerizer(object):
     ''' Main application class '''
+
     def __init__(self):
         self.parser = self.init_argparse()
 

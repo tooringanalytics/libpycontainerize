@@ -1,6 +1,7 @@
 import json
 import os
 from json import JSONEncoder
+
 from constants import APP_ATTRIB
 from constants import APP_CONFIG
 from constants import APP_TEMPLATE_MAP
