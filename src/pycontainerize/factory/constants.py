@@ -1,8 +1,13 @@
 import re
 import os
 
+DEFAULT_OUTPUT_DIR = 'output'
 
-DEFAULT_PROJECTS_DIR = 'projects'
+
+DEFAULT_PROJECTS_DIR = os.path.join(
+    DEFAULT_OUTPUT_DIR,
+    'projects'
+)
 
 CONFIG_TEMPLATES_DIR = os.path.join(
     os.path.dirname(os.path.dirname(__file__)),
