@@ -1,11 +1,7 @@
-from leaf_node_config import (
-    LeafNodeConfig,
-)
-from constants import (
-    ATTR_NAME,
-    PRJ_ATTR_SERVICES,
-    DOM_ATTR_SERVICES,
-)
+from constants import ATTR_NAME
+from constants import DOM_ATTR_SERVICES
+from constants import PRJ_ATTR_SERVICES
+from leaf_node_config import LeafNodeConfig
 
 
 class ServiceConfig(LeafNodeConfig):

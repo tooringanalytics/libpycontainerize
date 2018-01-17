@@ -1,38 +1,24 @@
-import os
 import json
+import os
+
 import click
-from pycontainerize.project import (
-    Project,
-)
-from pycontainerize.domain import (
-    Domain,
-)
-from project_config import (
-    ProjectConfig,
-)
-from domain_config import (
-    DomainConfig,
-)
-from app_config import (
-    AppConfig,
-)
-from service_config import (
-    ServiceConfig,
-)
-from object_factory import (
-    ObjectFactory,
-)
-from constants import (
-    DOM_ATTR_APPS,
-    DOM_ATTR_SERVICES,
-    APP_CONFIG_FILE,
-    DOMAIN_CONFIG_FILE,
-    PRJ_ATTR_DOMAINS,
-    PRJ_ATTR_SERVICES,
-    DEFAULT_PROJECTS_DIR,
-    PROJECT_CONFIG_FILE,
-    SERVICE_CONFIG_FILE,
-)
+from app_config import AppConfig
+from constants import APP_CONFIG_FILE
+from constants import DEFAULT_PROJECTS_DIR
+from constants import DOM_ATTR_APPS
+from constants import DOM_ATTR_SERVICES
+from constants import DOMAIN_CONFIG_FILE
+from constants import PRJ_ATTR_DOMAINS
+from constants import PRJ_ATTR_SERVICES
+from constants import PROJECT_CONFIG_FILE
+from constants import SERVICE_CONFIG_FILE
+from domain_config import DomainConfig
+from object_factory import ObjectFactory
+from project_config import ProjectConfig
+from service_config import ServiceConfig
+
+from pycontainerize.domain import Domain
+from pycontainerize.project import Project
 
 
 @click.command()

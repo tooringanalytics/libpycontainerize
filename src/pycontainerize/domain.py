@@ -1,38 +1,29 @@
 import json
-from json import JSONEncoder
 import os
+from json import JSONEncoder
 
-from service import (
-    Service,
-)
-from app import (
-    App,
-)
-from utils import (
-    dircopy,
-)
-from constants import (
-    DOMAINS_DIR,
-    DOMAIN_TEMPLATE_MAP,
-    DOMAIN_CONFIG,
-    DOMAIN_ATTRIB,
-    CONTEXT_ATTRIB,
-    PROJECT_ATTRIB,
-    APPS_ATTRIB,
-    APPS_DIR,
-    SERVICES_ATTRIB,
-    SERVICES_DIR,
-    CERTS_DIR,
-    NAME_ATTRIB,
-)
-from errors import (
-    UnableToLoadDomain,
-    UnableToRenderTemplate,
-)
+from app import App
+from constants import APPS_ATTRIB
+from constants import APPS_DIR
+from constants import CERTS_DIR
+from constants import CONTEXT_ATTRIB
+from constants import DOMAIN_ATTRIB
+from constants import DOMAIN_CONFIG
+from constants import DOMAIN_TEMPLATE_MAP
+from constants import DOMAINS_DIR
+from constants import NAME_ATTRIB
+from constants import PROJECT_ATTRIB
+from constants import SERVICES_ATTRIB
+from constants import SERVICES_DIR
+from errors import UnableToLoadDomain
+from errors import UnableToRenderTemplate
+from service import Service
+from utils import dircopy
 
 
 class DomainEncoder(JSONEncoder):
     ''' Encode a Domain object into a dict for JSON serialization '''
+
     def default(self, obj):
         ps = {}
         domain = obj.domain

@@ -1,33 +1,26 @@
 import json
-from json import JSONEncoder
 import os
+from json import JSONEncoder
 
-from errors import (
-    UnableToLoadProject,
-    UnableToLoadApp,
-    UnableToRenderTemplate,
-)
-from constants import (
-    CONTEXT_ATTRIB,
-    PROJECT_ATTRIB,
-    DOMAINS_ATTRIB,
-    PARENT_ATTRIB,
-    SERVICES_ATTRIB,
-    NETWORKS_ATTRIB,
-    DOMAINS_DIR,
-    PROJECT_CONFIG,
-    PROJECT_TEMPLATE_MAP,
-)
-from domain import (
-    Domain,
-)
-from network import (
-    Networks,
-)
+from constants import CONTEXT_ATTRIB
+from constants import DOMAINS_ATTRIB
+from constants import DOMAINS_DIR
+from constants import NETWORKS_ATTRIB
+from constants import PARENT_ATTRIB
+from constants import PROJECT_ATTRIB
+from constants import PROJECT_CONFIG
+from constants import PROJECT_TEMPLATE_MAP
+from constants import SERVICES_ATTRIB
+from domain import Domain
+from errors import UnableToLoadApp
+from errors import UnableToLoadProject
+from errors import UnableToRenderTemplate
+from network import Networks
 
 
 class ProjectEncoder(JSONEncoder):
     ''' Encode a Project object into a dict for JSON serialization '''
+
     def default(self, obj):
         ps = {}
         project = obj.project
@@ -46,6 +39,7 @@ class ProjectEncoder(JSONEncoder):
 
 class Project(object):
     ''' A Python App Container Swarm Project '''
+
     def __init__(self, project_dir, project_def):
         self.project = project_def
         self.dir = project_dir

@@ -14,20 +14,15 @@ Why does this file exist, and why not put this in __main__?
 
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
-from cli_parser import (
-    CLIParser,
-)
 import click
-from builder import (
-    build_project,
-    builder,
-)
-from factory import (
-    create_project,
-    create_domain,
-    create_app,
-    gen,
-)
+
+from builder import build_project
+from builder import builder
+from cli_parser import CLIParser
+from factory import create_app
+from factory import create_domain
+from factory import create_project
+from factory import gen
 
 
 class TestCLIParser(CLIParser):

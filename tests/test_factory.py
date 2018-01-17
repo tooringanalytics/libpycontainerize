@@ -1,17 +1,14 @@
-import unittest
 import os
 import shutil
-from pycontainerize import (
-    TypeConfig,
-    ProjectConfig,
-    DomainConfig,
-    AppConfig,
-    ServiceConfig,
-    ObjectFactory,
-)
-from pycontainerize.errors import (
-    TypeDefinitionNotFoundError,
-)
+import unittest
+
+from pycontainerize import AppConfig
+from pycontainerize import DomainConfig
+from pycontainerize import ObjectFactory
+from pycontainerize import ProjectConfig
+from pycontainerize import ServiceConfig
+from pycontainerize import TypeConfig
+from pycontainerize.errors import TypeDefinitionNotFoundError
 
 
 class FactoryTestCase(unittest.TestCase):

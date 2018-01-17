@@ -1,9 +1,10 @@
-from json import JSONEncoder
 import json
+from json import JSONEncoder
 
 
 class NetworkEncoder(JSONEncoder):
     ''' Encode a Network object into a dict for JSON serialization '''
+
     def default(self, obj):
         nw = {}
         network = obj.network
@@ -13,15 +14,16 @@ class NetworkEncoder(JSONEncoder):
 
 
 class Network(object):
-    ''' Networks Config '''
+    ''' Network Config '''
+
     def __init__(self, project_dir, network_def):
         self.network = network_def
         self.dir = project_dir
 
 
 class Networks(object):
+    ''' Networks (Collection) Config '''
 
-    ''' Networks Config '''
     def __init__(self, project_dir, networks_def):
         self.networks = networks_def
         self.dir = project_dir

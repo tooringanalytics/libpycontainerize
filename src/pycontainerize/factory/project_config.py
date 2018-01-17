@@ -1,6 +1,4 @@
-from object_config import (
-    ObjectConfig,
-)
+from object_config import ObjectConfig
 
 
 class ProjectConfig(ObjectConfig):

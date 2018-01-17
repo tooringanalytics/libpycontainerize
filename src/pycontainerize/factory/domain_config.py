@@ -1,10 +1,6 @@
-from object_config import (
-    ObjectConfig,
-)
-from constants import (
-    ATTR_NAME,
-    PRJ_ATTR_DOMAINS,
-)
+from constants import ATTR_NAME
+from constants import PRJ_ATTR_DOMAINS
+from object_config import ObjectConfig
 
 
 class DomainConfig(ObjectConfig):

@@ -1,28 +1,23 @@
 import os
 
-
-from constants import (
-    OBJ_ATTR_PARENTS,
-    OBJ_ATTR_CONFIG_TEMPLATE,
-    OBJ_ATTR_NAME,
-    BASE_CLASS_NAME,
-    CLASSES_DIR,
-    CONFIG_TEMPLATES_DIR,
-    TYPES_DIR,
-    RE_LIST_OF_TYPES,
-    INBUILT_TYPES,
-    ATTR_EXTENDS,
-    ATTR_DEFINITION,
-    ATTR_TEMPLATES,
-    OBJ_ATTR_TEMPLATES,
-    ATTR_NAME,
-    ATTR_TYPE,
-    ATTR_PERM,
-    ATTR_SRC,
-)
-from object_config import (
-    ObjectConfig,
-)
+from constants import ATTR_DEFINITION
+from constants import ATTR_EXTENDS
+from constants import ATTR_NAME
+from constants import ATTR_PERM
+from constants import ATTR_SRC
+from constants import ATTR_TEMPLATES
+from constants import ATTR_TYPE
+from constants import BASE_CLASS_NAME
+from constants import CLASSES_DIR
+from constants import CONFIG_TEMPLATES_DIR
+from constants import INBUILT_TYPES
+from constants import OBJ_ATTR_CONFIG_TEMPLATE
+from constants import OBJ_ATTR_NAME
+from constants import OBJ_ATTR_PARENTS
+from constants import OBJ_ATTR_TEMPLATES
+from constants import RE_LIST_OF_TYPES
+from constants import TYPES_DIR
+from object_config import ObjectConfig
 
 
 class ClassConfig(ObjectConfig):

@@ -1,33 +1,28 @@
+import json
 import os
 import shutil
-import json
-from constants import (
-    ATTR_SRC,
-    OBJ_ATTR_CONFIG_TEMPLATE,
-    OBJ_ATTR_NAME,
-    OBJ_ATTR_PARENTS,
-    OBJ_ATTR_TEMPLATES,
-    BASE_CLASS_NAME,
-    CLASSES_DIR,
-    CONFIG_TEMPLATES_DIR,
-    TYPES_DIR,
-    RE_LIST_OF_TYPES,
-    INBUILT_TYPES,
-    ATTR_NAME,
-    ATTR_EXTENDS,
-    ATTR_DEFINITION,
-    ATTR_TEMPLATES,
-    ATTR_TYPE,
-    ATTR_PERM,
-    ATTR_CTX,
-    ATTR_DST,
-)
-from object_config import (
-    ObjectProto,
-)
-from class_config import (
-    ClassConfig,
-)
+
+from class_config import ClassConfig
+from constants import ATTR_CTX
+from constants import ATTR_DEFINITION
+from constants import ATTR_DST
+from constants import ATTR_EXTENDS
+from constants import ATTR_NAME
+from constants import ATTR_PERM
+from constants import ATTR_SRC
+from constants import ATTR_TEMPLATES
+from constants import ATTR_TYPE
+from constants import BASE_CLASS_NAME
+from constants import CLASSES_DIR
+from constants import CONFIG_TEMPLATES_DIR
+from constants import INBUILT_TYPES
+from constants import OBJ_ATTR_CONFIG_TEMPLATE
+from constants import OBJ_ATTR_NAME
+from constants import OBJ_ATTR_PARENTS
+from constants import OBJ_ATTR_TEMPLATES
+from constants import RE_LIST_OF_TYPES
+from constants import TYPES_DIR
+from object_config import ObjectProto
 
 
 class LeafNodeConfig(ClassConfig):

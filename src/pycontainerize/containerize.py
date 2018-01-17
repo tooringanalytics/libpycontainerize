@@ -7,24 +7,16 @@ Create a docker-compose file from a web service specification.
 import argparse
 import os
 import sys
+
 import six
 
-from pycontainerize.constants import (
-    DEFAULT_PROJECTS_DIR,
-    DEFAULT_OUTPUT_DIR,
-    DEFAULT_TEMPLATES_DIR,
-)
-from pycontainerize.errors import (
-    TemplatesDirNotFound,
-    ProjectNotFound,
-)
-from pycontainerize.renderer import (
-    Renderer,
-)
-from pycontainerize.project import (
-    Project,
-)
-
+from pycontainerize.constants import DEFAULT_OUTPUT_DIR
+from pycontainerize.constants import DEFAULT_PROJECTS_DIR
+from pycontainerize.constants import DEFAULT_TEMPLATES_DIR
+from pycontainerize.errors import ProjectNotFound
+from pycontainerize.errors import TemplatesDirNotFound
+from pycontainerize.project import Project
+from pycontainerize.renderer import Renderer
 
 '''
 Templates are rendered in 4 types of contexts:

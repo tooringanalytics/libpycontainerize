@@ -1,29 +1,27 @@
 import json
-from json import JSONEncoder
 import os
-from constants import (
-    APP_TEMPLATE_MAP,
-    APP_CONFIG,
-    APP_ATTRIB,
-    CONTEXT_ATTRIB,
-    PROJECT_ATTRIB,
-    DOMAIN_ATTRIB,
-    SERVICE_ATTRIB,
-)
-from errors import (
-    UnableToLoadApp,
-    UnableToRenderTemplate,
-)
+from json import JSONEncoder
+from constants import APP_ATTRIB
+from constants import APP_CONFIG
+from constants import APP_TEMPLATE_MAP
+from constants import CONTEXT_ATTRIB
+from constants import DOMAIN_ATTRIB
+from constants import PROJECT_ATTRIB
+from constants import SERVICE_ATTRIB
+from errors import UnableToLoadApp
+from errors import UnableToRenderTemplate
 
 
 class AppEncoder(JSONEncoder):
     ''' Encode an App object into a dict for JSON serialization '''
+
     def default(self, obj):
         return obj.app
 
 
 class App(object):
     ''' A python web app '''
+
     def __init__(self, app):
         self.app = app
 

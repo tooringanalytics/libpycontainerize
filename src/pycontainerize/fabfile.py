@@ -1,17 +1,15 @@
 #!/usr/bin/env python
-from fabric.api import (
-    env,
-    task,
-    runs_once,
-)
-from fabric.operations import (
-    settings,
-    run,
-    put,
-)
-from fabric.context_managers import cd
 import os
 import os.path
+
+from fabric.api import env
+from fabric.api import runs_once
+from fabric.api import task
+from fabric.context_managers import cd
+from fabric.operations import put
+from fabric.operations import run
+from fabric.operations import settings
+
 import pycontainerize
 from pycontainerize import Containerizer
 

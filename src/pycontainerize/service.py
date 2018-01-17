@@ -1,28 +1,26 @@
 import json
-from json import JSONEncoder
 import os
 import sys
-import six
+from json import JSONEncoder
 
-from constants import (
-    SERVICE_TEMPLATE_MAP,
-    SERVICE_CONFIG,
-    THIS_ATTRIB,
-    SERVICE_ATTRIB,
-)
-from errors import (
-    UnableToLoadService,
-)
+import six
+from constants import SERVICE_ATTRIB
+from constants import SERVICE_CONFIG
+from constants import SERVICE_TEMPLATE_MAP
+from constants import THIS_ATTRIB
+from errors import UnableToLoadService
 
 
 class ServiceEncoder(JSONEncoder):
     ''' Encode a Service object into a dict for JSON serialization '''
+
     def default(self, obj):
         return obj.service
 
 
 class Service(object):
     ''' A service for a given domain '''
+
     def __init__(self, service):
         self.service = service
 

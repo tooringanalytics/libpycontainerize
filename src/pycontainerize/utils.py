@@ -1,9 +1,8 @@
 import errno
-import shutil
 import os
-from errors import (
-    DircopyError,
-)
+import shutil
+
+from errors import DircopyError
 
 
 def dircopy(src, dest, force=True, print_file=True):

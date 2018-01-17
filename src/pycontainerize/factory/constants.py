@@ -1,5 +1,5 @@
-import re
 import os
+import re
 
 DEFAULT_OUTPUT_DIR = 'output'
 

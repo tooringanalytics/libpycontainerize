@@ -1,22 +1,19 @@
-import os
 import json
+import os
 
-from constants import (
-    CONFIG_TEMPLATES_DIR,
-    TYPES_DIR,
-    RE_INBUILT_CONTAINERS,
-    RE_LIST_OF_TYPES,
-    INBUILT_TYPES,
-    ATTR_DEFAULT,
-    ATTR_NAME,
-    ATTR_TYPE,
-    ATTR_REQUIRED,
-)
-from pycontainerize.errors import (
-    TypeDefinitionError,
-    TypeDefinitionNotFoundError,
-    InvalidTypeError,
-)
+from constants import ATTR_DEFAULT
+from constants import ATTR_NAME
+from constants import ATTR_REQUIRED
+from constants import ATTR_TYPE
+from constants import CONFIG_TEMPLATES_DIR
+from constants import INBUILT_TYPES
+from constants import RE_INBUILT_CONTAINERS
+from constants import RE_LIST_OF_TYPES
+from constants import TYPES_DIR
+
+from pycontainerize.errors import InvalidTypeError
+from pycontainerize.errors import TypeDefinitionError
+from pycontainerize.errors import TypeDefinitionNotFoundError
 
 
 class ObjectProto(object):

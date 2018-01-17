@@ -1,12 +1,11 @@
-from jinja2 import (
-    Environment,
-    FileSystemLoader,
-)
+from jinja2 import Environment
+from jinja2 import FileSystemLoader
 from jinja2.ext import with_
 
 
 class Renderer(object):
     ''' Template renderer, uses Jinja2 '''
+
     def __init__(self, templates_dir):
         self.templates_dir = templates_dir
         self.jinja = self.init_template_engine(templates_dir)

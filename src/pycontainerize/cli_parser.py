@@ -1,6 +1,7 @@
-import sys
-import six
 import argparse
+import sys
+
+import six
 
 
 class CLIParser(object):
