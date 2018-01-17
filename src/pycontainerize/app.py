@@ -2,13 +2,13 @@ import json
 import os
 from json import JSONEncoder
 
-from constants import APP_ATTRIB
-from constants import APP_CONFIG
-from constants import APP_TEMPLATE_MAP
-from constants import CONTEXT_ATTRIB
-from constants import DOMAIN_ATTRIB
-from constants import PROJECT_ATTRIB
-from constants import SERVICE_ATTRIB
+from pycontainerize.constants import APP_ATTRIB
+from pycontainerize.constants import APP_CONFIG
+from pycontainerize.constants import APP_TEMPLATE_MAP
+from pycontainerize.constants import CONTEXT_ATTRIB
+from pycontainerize.constants import DOMAIN_ATTRIB
+from pycontainerize.constants import PROJECT_ATTRIB
+from pycontainerize.constants import SERVICE_ATTRIB
 from errors import UnableToLoadApp
 from errors import UnableToRenderTemplate
 
