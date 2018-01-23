@@ -2,6 +2,8 @@ import json
 import os
 
 import click
+
+from pycontainerize.domain import Domain
 from pycontainerize.factory.app_config import AppConfig
 from pycontainerize.factory.constants import APP_CONFIG_FILE
 from pycontainerize.factory.constants import DEFAULT_PROJECTS_DIR
@@ -16,8 +18,6 @@ from pycontainerize.factory.domain_config import DomainConfig
 from pycontainerize.factory.object_factory import ObjectFactory
 from pycontainerize.factory.project_config import ProjectConfig
 from pycontainerize.factory.service_config import ServiceConfig
-
-from pycontainerize.domain import Domain
 from pycontainerize.project import Project
 
 

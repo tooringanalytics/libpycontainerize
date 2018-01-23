@@ -1,6 +1,9 @@
 import json
 import os
 
+from pycontainerize.errors import InvalidTypeError
+from pycontainerize.errors import TypeDefinitionError
+from pycontainerize.errors import TypeDefinitionNotFoundError
 from pycontainerize.factory.constants import ATTR_DEFAULT
 from pycontainerize.factory.constants import ATTR_NAME
 from pycontainerize.factory.constants import ATTR_REQUIRED
@@ -10,10 +13,6 @@ from pycontainerize.factory.constants import INBUILT_TYPES
 from pycontainerize.factory.constants import RE_INBUILT_CONTAINERS
 from pycontainerize.factory.constants import RE_LIST_OF_TYPES
 from pycontainerize.factory.constants import TYPES_DIR
-
-from pycontainerize.errors import InvalidTypeError
-from pycontainerize.errors import TypeDefinitionError
-from pycontainerize.errors import TypeDefinitionNotFoundError
 
 
 class ObjectProto(object):
