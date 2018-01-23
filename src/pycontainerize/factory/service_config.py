@@ -1,7 +1,7 @@
-from constants import ATTR_NAME
-from constants import DOM_ATTR_SERVICES
-from constants import PRJ_ATTR_SERVICES
-from leaf_node_config import LeafNodeConfig
+from pycontainerize.factory.constants import ATTR_NAME
+from pycontainerize.factory.constants import DOM_ATTR_SERVICES
+from pycontainerize.factory.constants import PRJ_ATTR_SERVICES
+from pycontainerize.factory.leaf_node_config import LeafNodeConfig
 
 
 class ServiceConfig(LeafNodeConfig):

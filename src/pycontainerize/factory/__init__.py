@@ -1,15 +1,15 @@
-from app_config import AppConfig
-from class_config import ClassConfig
-from domain_config import DomainConfig
-from factory import create_app
-from factory import create_domain
-from factory import create_project
-from factory import gen
-from object_config import ObjectConfig
-from object_config import TypeConfig
-from object_factory import ObjectFactory
-from project_config import ProjectConfig
-from service_config import ServiceConfig
+from pycontainerize.factory.app_config import AppConfig
+from pycontainerize.factory.class_config import ClassConfig
+from pycontainerize.factory.domain_config import DomainConfig
+from pycontainerize.factory.factory import create_app
+from pycontainerize.factory.factory import create_domain
+from pycontainerize.factory.factory import create_project
+from pycontainerize.factory.factory import gen
+from pycontainerize.factory.object_config import ObjectConfig
+from pycontainerize.factory.object_config import TypeConfig
+from pycontainerize.factory.object_factory import ObjectFactory
+from pycontainerize.factory.project_config import ProjectConfig
+from pycontainerize.factory.service_config import ServiceConfig
 
 __all__ = (
     'ObjectConfig',

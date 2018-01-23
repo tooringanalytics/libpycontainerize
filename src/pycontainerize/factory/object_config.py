@@ -1,15 +1,15 @@
 import json
 import os
 
-from constants import ATTR_DEFAULT
-from constants import ATTR_NAME
-from constants import ATTR_REQUIRED
-from constants import ATTR_TYPE
-from constants import CONFIG_TEMPLATES_DIR
-from constants import INBUILT_TYPES
-from constants import RE_INBUILT_CONTAINERS
-from constants import RE_LIST_OF_TYPES
-from constants import TYPES_DIR
+from pycontainerize.factory.constants import ATTR_DEFAULT
+from pycontainerize.factory.constants import ATTR_NAME
+from pycontainerize.factory.constants import ATTR_REQUIRED
+from pycontainerize.factory.constants import ATTR_TYPE
+from pycontainerize.factory.constants import CONFIG_TEMPLATES_DIR
+from pycontainerize.factory.constants import INBUILT_TYPES
+from pycontainerize.factory.constants import RE_INBUILT_CONTAINERS
+from pycontainerize.factory.constants import RE_LIST_OF_TYPES
+from pycontainerize.factory.constants import TYPES_DIR
 
 from pycontainerize.errors import InvalidTypeError
 from pycontainerize.errors import TypeDefinitionError

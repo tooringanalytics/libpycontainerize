@@ -15,6 +15,7 @@ Why does this file exist, and why not put this in __main__?
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
 import click
+
 from pycontainerize.builder import build_project
 from pycontainerize.builder import builder
 from pycontainerize.cli_parser import CLIParser

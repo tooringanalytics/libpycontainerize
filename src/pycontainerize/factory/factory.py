@@ -2,20 +2,20 @@ import json
 import os
 
 import click
-from app_config import AppConfig
-from constants import APP_CONFIG_FILE
-from constants import DEFAULT_PROJECTS_DIR
-from constants import DOM_ATTR_APPS
-from constants import DOM_ATTR_SERVICES
-from constants import DOMAIN_CONFIG_FILE
-from constants import PRJ_ATTR_DOMAINS
-from constants import PRJ_ATTR_SERVICES
-from constants import PROJECT_CONFIG_FILE
-from constants import SERVICE_CONFIG_FILE
-from domain_config import DomainConfig
-from object_factory import ObjectFactory
-from project_config import ProjectConfig
-from service_config import ServiceConfig
+from pycontainerize.factory.app_config import AppConfig
+from pycontainerize.factory.constants import APP_CONFIG_FILE
+from pycontainerize.factory.constants import DEFAULT_PROJECTS_DIR
+from pycontainerize.factory.constants import DOM_ATTR_APPS
+from pycontainerize.factory.constants import DOM_ATTR_SERVICES
+from pycontainerize.factory.constants import DOMAIN_CONFIG_FILE
+from pycontainerize.factory.constants import PRJ_ATTR_DOMAINS
+from pycontainerize.factory.constants import PRJ_ATTR_SERVICES
+from pycontainerize.factory.constants import PROJECT_CONFIG_FILE
+from pycontainerize.factory.constants import SERVICE_CONFIG_FILE
+from pycontainerize.factory.domain_config import DomainConfig
+from pycontainerize.factory.object_factory import ObjectFactory
+from pycontainerize.factory.project_config import ProjectConfig
+from pycontainerize.factory.service_config import ServiceConfig
 
 from pycontainerize.domain import Domain
 from pycontainerize.project import Project

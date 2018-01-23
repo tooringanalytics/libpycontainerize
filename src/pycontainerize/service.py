@@ -4,6 +4,7 @@ import sys
 from json import JSONEncoder
 
 import six
+
 from pycontainerize.constants import SERVICE_ATTRIB
 from pycontainerize.constants import SERVICE_CONFIG
 from pycontainerize.constants import SERVICE_TEMPLATE_MAP

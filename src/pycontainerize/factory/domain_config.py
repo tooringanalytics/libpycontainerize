@@ -1,6 +1,6 @@
-from constants import ATTR_NAME
-from constants import PRJ_ATTR_DOMAINS
-from object_config import ObjectConfig
+from pycontainerize.factory.constants import ATTR_NAME
+from pycontainerize.factory.constants import PRJ_ATTR_DOMAINS
+from pycontainerize.factory.object_config import ObjectConfig
 
 
 class DomainConfig(ObjectConfig):

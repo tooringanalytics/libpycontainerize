@@ -2,27 +2,27 @@ import json
 import os
 import shutil
 
-from class_config import ClassConfig
-from constants import ATTR_CTX
-from constants import ATTR_DEFINITION
-from constants import ATTR_DST
-from constants import ATTR_EXTENDS
-from constants import ATTR_NAME
-from constants import ATTR_PERM
-from constants import ATTR_SRC
-from constants import ATTR_TEMPLATES
-from constants import ATTR_TYPE
-from constants import BASE_CLASS_NAME
-from constants import CLASSES_DIR
-from constants import CONFIG_TEMPLATES_DIR
-from constants import INBUILT_TYPES
-from constants import OBJ_ATTR_CONFIG_TEMPLATE
-from constants import OBJ_ATTR_NAME
-from constants import OBJ_ATTR_PARENTS
-from constants import OBJ_ATTR_TEMPLATES
-from constants import RE_LIST_OF_TYPES
-from constants import TYPES_DIR
-from object_config import ObjectProto
+from pycontainerize.factory.class_config import ClassConfig
+from pycontainerize.factory.constants import ATTR_CTX
+from pycontainerize.factory.constants import ATTR_DEFINITION
+from pycontainerize.factory.constants import ATTR_DST
+from pycontainerize.factory.constants import ATTR_EXTENDS
+from pycontainerize.factory.constants import ATTR_NAME
+from pycontainerize.factory.constants import ATTR_PERM
+from pycontainerize.factory.constants import ATTR_SRC
+from pycontainerize.factory.constants import ATTR_TEMPLATES
+from pycontainerize.factory.constants import ATTR_TYPE
+from pycontainerize.factory.constants import BASE_CLASS_NAME
+from pycontainerize.factory.constants import CLASSES_DIR
+from pycontainerize.factory.constants import CONFIG_TEMPLATES_DIR
+from pycontainerize.factory.constants import INBUILT_TYPES
+from pycontainerize.factory.constants import OBJ_ATTR_CONFIG_TEMPLATE
+from pycontainerize.factory.constants import OBJ_ATTR_NAME
+from pycontainerize.factory.constants import OBJ_ATTR_PARENTS
+from pycontainerize.factory.constants import OBJ_ATTR_TEMPLATES
+from pycontainerize.factory.constants import RE_LIST_OF_TYPES
+from pycontainerize.factory.constants import TYPES_DIR
+from pycontainerize.factory.object_config import ObjectProto
 
 
 class LeafNodeConfig(ClassConfig):

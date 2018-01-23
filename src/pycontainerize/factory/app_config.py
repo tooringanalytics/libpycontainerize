@@ -1,6 +1,6 @@
-from constants import ATTR_NAME
-from constants import DOM_ATTR_APPS
-from leaf_node_config import LeafNodeConfig
+from pycontainerize.factory.constants import ATTR_NAME
+from pycontainerize.factory.constants import DOM_ATTR_APPS
+from pycontainerize.factory.leaf_node_config import LeafNodeConfig
 
 
 class AppConfig(LeafNodeConfig):

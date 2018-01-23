@@ -1,4 +1,4 @@
-from object_config import ObjectConfig
+from pycontainerize.factory.object_config import ObjectConfig
 
 
 class ProjectConfig(ObjectConfig):
