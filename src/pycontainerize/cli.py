@@ -15,13 +15,13 @@ Why does this file exist, and why not put this in __main__?
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
 import click
-from builder import build_project
-from builder import builder
-from cli_parser import CLIParser
-from factory import create_app
-from factory import create_domain
-from factory import create_project
-from factory import gen
+from pycontainerize.builder import build_project
+from pycontainerize.builder import builder
+from pycontainerize.cli_parser import CLIParser
+from pycontainerize.factory import create_app
+from pycontainerize.factory import create_domain
+from pycontainerize.factory import create_project
+from pycontainerize.factory import gen
 
 
 class TestCLIParser(CLIParser):

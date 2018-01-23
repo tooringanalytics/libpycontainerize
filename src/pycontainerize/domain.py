@@ -2,23 +2,23 @@ import json
 import os
 from json import JSONEncoder
 
-from app import App
-from constants import APPS_ATTRIB
-from constants import APPS_DIR
-from constants import CERTS_DIR
-from constants import CONTEXT_ATTRIB
-from constants import DOMAIN_ATTRIB
-from constants import DOMAIN_CONFIG
-from constants import DOMAIN_TEMPLATE_MAP
-from constants import DOMAINS_DIR
-from constants import NAME_ATTRIB
-from constants import PROJECT_ATTRIB
-from constants import SERVICES_ATTRIB
-from constants import SERVICES_DIR
-from errors import UnableToLoadDomain
-from errors import UnableToRenderTemplate
-from service import Service
-from utils import dircopy
+from pycontainerize.app import App
+from pycontainerize.constants import APPS_ATTRIB
+from pycontainerize.constants import APPS_DIR
+from pycontainerize.constants import CERTS_DIR
+from pycontainerize.constants import CONTEXT_ATTRIB
+from pycontainerize.constants import DOMAIN_ATTRIB
+from pycontainerize.constants import DOMAIN_CONFIG
+from pycontainerize.constants import DOMAIN_TEMPLATE_MAP
+from pycontainerize.constants import DOMAINS_DIR
+from pycontainerize.constants import NAME_ATTRIB
+from pycontainerize.constants import PROJECT_ATTRIB
+from pycontainerize.constants import SERVICES_ATTRIB
+from pycontainerize.constants import SERVICES_DIR
+from pycontainerize.errors import UnableToLoadDomain
+from pycontainerize.errors import UnableToRenderTemplate
+from pycontainerize.service import Service
+from pycontainerize.utils import dircopy
 
 
 class DomainEncoder(JSONEncoder):

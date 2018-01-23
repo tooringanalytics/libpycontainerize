@@ -2,7 +2,7 @@ import errno
 import os
 import shutil
 
-from errors import DircopyError
+from pycontainerize.errors import DircopyError
 
 
 def dircopy(src, dest, force=True, print_file=True):

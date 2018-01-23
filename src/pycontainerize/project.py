@@ -2,20 +2,20 @@ import json
 import os
 from json import JSONEncoder
 
-from constants import CONTEXT_ATTRIB
-from constants import DOMAINS_ATTRIB
-from constants import DOMAINS_DIR
-from constants import NETWORKS_ATTRIB
-from constants import PARENT_ATTRIB
-from constants import PROJECT_ATTRIB
-from constants import PROJECT_CONFIG
-from constants import PROJECT_TEMPLATE_MAP
-from constants import SERVICES_ATTRIB
-from domain import Domain
-from errors import UnableToLoadApp
-from errors import UnableToLoadProject
-from errors import UnableToRenderTemplate
-from network import Networks
+from pycontainerize.constants import CONTEXT_ATTRIB
+from pycontainerize.constants import DOMAINS_ATTRIB
+from pycontainerize.constants import DOMAINS_DIR
+from pycontainerize.constants import NETWORKS_ATTRIB
+from pycontainerize.constants import PARENT_ATTRIB
+from pycontainerize.constants import PROJECT_ATTRIB
+from pycontainerize.constants import PROJECT_CONFIG
+from pycontainerize.constants import PROJECT_TEMPLATE_MAP
+from pycontainerize.constants import SERVICES_ATTRIB
+from pycontainerize.domain import Domain
+from pycontainerize.errors import UnableToLoadApp
+from pycontainerize.errors import UnableToLoadProject
+from pycontainerize.errors import UnableToRenderTemplate
+from pycontainerize.network import Networks
 
 
 class ProjectEncoder(JSONEncoder):

@@ -4,11 +4,11 @@ import sys
 from json import JSONEncoder
 
 import six
-from constants import SERVICE_ATTRIB
-from constants import SERVICE_CONFIG
-from constants import SERVICE_TEMPLATE_MAP
-from constants import THIS_ATTRIB
-from errors import UnableToLoadService
+from pycontainerize.constants import SERVICE_ATTRIB
+from pycontainerize.constants import SERVICE_CONFIG
+from pycontainerize.constants import SERVICE_TEMPLATE_MAP
+from pycontainerize.constants import THIS_ATTRIB
+from pycontainerize.errors import UnableToLoadService
 
 
 class ServiceEncoder(JSONEncoder):
